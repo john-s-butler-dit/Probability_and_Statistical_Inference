@@ -1,5 +1,5 @@
 # Probability and Statistical Inference
-## [John S Butler](http://johnsbutler.netlfiy.com)
+## [John S Butler](http://https://johnsbutler.netlify.com/)
 
 This course is an introduction to probability and statistical inference with R. Rstudio is an interface for R, to download go to the Rstudio website.
 
