@@ -5,7 +5,7 @@ This course is an introduction to probability and statistical inference with R. 
 
 1. Introduction to Probability:
    - [Measures of Location]("Chapter 1- Introduction to Probability/Measures_of_Location_First_Moment.md");
-   - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location_First_Moment.md);
+   - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location.Rmd);
 
    - Counting;
    - Conditional Probability and Bayes Law.
