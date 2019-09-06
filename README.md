@@ -4,7 +4,7 @@
 This course is an introduction to probability and statistical inference with R. Rstudio is an interface for R, to download go to the Rstudio website.
 
 1. Introduction to Probability:
-   - [Measures of Location]("Chapter 1- Introduction to Probability/Measures_of_Location_First_Moment.html");
+   - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location_Second_Moment.html);
    - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location.Rmd);
 
    - Counting;
