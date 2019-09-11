@@ -1,21 +1,19 @@
 ---
-title: "Measures of Location: First Moment"
+title: "Mathematical Probability"
 author: "[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)"
-output:
-  md_document:
-    variant: markdown_github
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# First Moment: Middle
+# First Moment
 
 ## Mean (average)
 ### Definition:
 
-The mean $\bar{x}$, $\mu$ is the point around which the sum of the deviations is 0.
+The mean $\bar{x}$ is the point around which the sum of the deviations is 0.
 The formula is given by
 $$ \bar{x}=\frac{\sum_{i=1}^n x_i}{n} $$
 where $x_i$ is each element and $n$ is the number of elements.
@@ -24,7 +22,7 @@ In words, add the numbers together and divided by how many numbers are in the li
 ### Example
 Given the list of 7 ages at a concert {19,18,20,18,18,18,20}, the mean is:
 
-$$ \bar{x}=\frac{20+18+19+18+18+18+20}{7}=18.71429. $$
+$$ \bar{x}=\frac20+18+{19+18+18+18+20}{7}=18.71429. $$
 
 
 In R code:
@@ -101,7 +99,7 @@ median(Age)
 
 ```{r,warning=FALSE}
 hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=median(Age),col="green",lwd=3)# line indicating the median
+abline(v=median(Age),col="green",lwd=3)# line indicating the mean
 legend("topright",c("median"),lwd=4,col=c("green"))
 
 ```
@@ -144,7 +142,7 @@ Mode(Age)
 
 ```{r,warning=FALSE}
 hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=Mode(Age),col="red",lwd=3)# line indicating the mode
+abline(v=Mode(Age),col="red",lwd=3)# line indicating the mean
 legend("topright",c("mode"),lwd=4,col=c("red"))
 
 ```

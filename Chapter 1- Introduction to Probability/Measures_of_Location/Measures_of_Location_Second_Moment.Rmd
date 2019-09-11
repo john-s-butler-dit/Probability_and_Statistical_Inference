@@ -1,12 +1,29 @@
 ---
-title: "Measures of Location: Second Moment"
-author: "[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)"
-output: html_document
+title: 'Measures of Location: Second Moment'
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Introduction
+
+A different aspects of a distribution of data can be summarised by the measures of location:
+
+1. The First Moment: Middle.
+
+2. __The Second Moment: Spread.__
+
+3. The Third Moment: Symmetry.
+
+
+All that being said, I would always recommend plotting the data first before anything else.
+
+__A picture (histogram) is worth a thousand words.__
 
 # Second Moment: Spread
 
@@ -24,8 +41,9 @@ Given the list of 7 ages at a concert {19,18,20,18,18,18,20}, the mean is $\bar{
 |**$x_i$**   |20  |18   |  19 |18 |18  |18 |20 |
 |----|----|----|----|----|----|----|----|
 |**$x_i-\bar{x}$**   |20-18.71429   |18-18.71429   |19-18.71429   | 18-18.71429   |18-18.71429   |18-18.71429   |20-18.71429   |
-|**$(x_i-\bar{x})^2$**   |1.65306122   |0.51020408   |0.08163265  | 0.51020408    | 1.65306122   |18-18.71429   |20-18.71429   |
-$$ \frac{\sum_{i=1}^7 (x_i-\bar{x})^2}{7-1}=\frac{1.65306122+ 0.51020408 +0.08163265 +0.51020408 +0.51020408 +0.51020408+ 1.65306122}{7-1}=0.9047619. $$
+|**$(x_i-\bar{x})^2$**   |1.65306122   |0.51020408   |0.08163265  | 0.51020408    | 1.65306122   |0.51020408  |1.65306122   |
+$$ \frac{\sum_{i=1}^7 (x_i-\bar{x})^2}{7-1}=$$
+$$\frac{1.65306122+ 0.51020408 +0.08163265 +0.51020408 +0.51020408 +0.51020408+ 1.65306122}{7-1}=0.9047619. $$
 Or you could just use the command Var().
 
 In R code:
@@ -55,25 +73,30 @@ sd(Age) # Each element minus the mean
 ```
 
 ### Standard Deviation and Variance Pros and Cons
-Pros of the standard deviation and variance:
+Pros of the standard deviation and variance;
 
 * Takes all data into account.
 
 * Lends itself to computation of other stable measures (and is a prerequisite for many of them).
 
-Cons of the mean:
+Cons of the mean;
+
 * Hard to interpret.
+
 * Can be influenced by extreme scores.
 
 ### Graphical representation of the variance/standard deviation:
 The figure below shows the histogram from 2000 Age observations at a concert:
-```{r,warning=FALSE}
+```{r,warning=FALSE, echo=FALSE}
 Age<-rnorm(2000,23,2)
-hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30)) # Histogram of the 7 numbers
+# png("Second_Moment.png", width = 6, height = 4, units = 'in', res = 300)
+ 
+hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylab=NULL,main=NULL,ylim=c(0,500)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
-abline(v=c(mean(Age)-var(Age),mean(Age)+var(Age)), col=c("red", "red"), lty=c(2,2), lwd=c(3, 3))
-abline(v=c(mean(Age)-sd(Age),mean(Age)+sd(Age)), col=c("blue", "blue"), lty=c(2,2), lwd=c(3, 3))
-legend("topright",c("mean","variance","standard deviation"),lwd=c(3,3,3),lty=c(1,2,2),col=c("blue","red","blue"))
+abline(v=c(mean(Age)-var(Age),mean(Age)+var(Age)), col=c("red", "red"), lty=c(2,2), lwd=c(3, 3))# Variance
+abline(v=c(mean(Age)-sd(Age),mean(Age)+sd(Age)), col=c("blue", "blue"), lty=c(2,2), lwd=c(3, 3))# Standard Deviation
+legend("topleft",c("mean","variance","standard deviation"),lwd=c(3,3,3),lty=c(1,2,2),col=c("blue","red","blue"))
+#dev.off()
 
 ```
 
@@ -99,43 +122,45 @@ The range is 2.
 In R code:
 
 ```{r}
-Age=c(20,18,19,18,18,18,20) # List of 7 numbers
-
-median(Age)
+Age<-rnorm(2000,23,2)
+range(Age)
 
 ```
 ### Graphical representation of the range:
-```{r,warning=FALSE}
-Age<-rnorm(2000,23,2)
-hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30)) # Histogram of the 7 numbers
+```{r,warning=FALSE, echo=FALSE}
+hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylim=c(0,700)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=range(Age), col=c("green", "green"), lty=c(2,2), lwd=c(3, 3))
-legend("topright",c("range"),lwd=c(3),lty=c(2),col=c("green"))
-
+legend(15,700,c("mean","range"),lwd=c(3,3),lty=c(1,2),col=c("blue","green"))
 ```
 
 ## Interquartile Range
 The interquartile range brackets 50% of the observations.
 
-```{r,warning=FALSE}
+```{r,warning=FALSE, echo=FALSE}
 Age<-rnorm(2000,23,2)
-hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30)) # Histogram of the 7 numbers
+hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylim=c(0,700)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=c(quantile(Age, 1/4) , quantile(Age, 3/4)), col=c("green", "green"), lty=c(3,3), lwd=c(3, 3))
-legend("topright",c("Interquatile range"),lwd=c(3),lty=c(3),col=c("green"))
+legend(15,700,c("mean","Interquatile range"),lwd=c(3,3),lty=c(1,3),col=c("blue","green"))
+
 
 ```
 
 ### Range Pros and Cons
 Pros of the range and interquartile range:
 
-Pros
+Pros;
+
 * Fairly easy to compute.
+
 * Scores exist in the data set.
+
 * Eliminates influence of extreme scores.
 
-Cons
-* Discards much of the data
+Cons;
+
+* Discards much of the data.
 
 ## Mean and Standard Deviation together
 As both the first and second moments give different information it makes sense to use them together, the most commmon combination is the mean and standard deviation.
@@ -146,11 +171,28 @@ It also allows a direct comparison between distributions that are on different s
 
 The Coefficient of Variation uses both the mean and standard to describe the distribution
 $$CV=\frac{\sigma}{\bar{x}} $$
-Pros
+Pros;
 
 * The Coefficient of Variation  is unitless and therefore can be used to compare across different variables.
 
-Cons
+Cons;
 
 * The Coefficient of Variation does not have a direct meaning to the original data.
 
+## All in one plot
+The figure below shows a histogram of 3000 attendees age observations at a Wiggles concert:
+```{r,warning=FALSE,echo=FALSE}
+#png("First_Moment.png", width = 4, height = 3, units = 'in', res = 200)
+
+library(ggplot2)
+Age<-c(rnorm(2000,10,1.5))
+
+df <- data.frame(Age)
+ggplot(df, aes(x=Age)) +  geom_histogram(color="black", fill="white",binwidth = 1)+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=mean(Age)-sd(Age),col="blue",size=1,labels="mean",linetype="dotted")+
+geom_vline(xintercept=mean(Age)+sd(Age),col="blue",size=1,linetype="dotted")+
+  geom_text(aes(x=mean(Age), label="standard deviation", y=600), colour="blue",  text=element_text(size=11))
+
+ggsave("range.png",dpi=300, width = 4, height = 2.5)
+
+
+```

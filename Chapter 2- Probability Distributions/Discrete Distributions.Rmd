@@ -1,19 +1,36 @@
 ---
-title: "Measures of Location"
-author: "[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)"
-output: html_document
+title: 'Measures of Location: First Moment'
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Introduction
 
-# First Moment
+Different aspects of a distribution of data can be summarised by the measures of location:
+
+1. The First Moment: Middle.
+
+2. The Second Moment: Spread.
+
+3. The Third Moment: Symmetry.
+
+
+All that being said, I would always recommend plotting the data first before anything else.
+
+__A picture (histogram) is worth a thousand words.__
+
+
+# First Moment: Middle
 
 ## Mean (average)
 ### Definition:
 
-The mean $\bar{x}$ is the point around which the sum of the deviations is 0.
+The mean $\bar{x}$, $\mu$ is the point around which the sum of the deviations is 0.
 The formula is given by
 $$ \bar{x}=\frac{\sum_{i=1}^n x_i}{n} $$
 where $x_i$ is each element and $n$ is the number of elements.
@@ -22,7 +39,7 @@ In words, add the numbers together and divided by how many numbers are in the li
 ### Example
 Given the list of 7 ages at a concert {19,18,20,18,18,18,20}, the mean is:
 
-$$ \bar{x}=\frac20+18+{19+18+18+18+20}{7}=18.71429. $$
+$$ \bar{x}=\frac{20+18+19+18+18+18+20}{7}=18.71429. $$
 
 
 In R code:
@@ -37,7 +54,7 @@ mean(Age) # The mean of the list
 ```
 ### Graphical representation of the mean:
 
-```{r,warning=FALSE}
+```{r,warning=FALSE,echo=FALSE}
 hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 legend("topright",c("mean"),lwd=4,col=c("blue"))
@@ -97,9 +114,9 @@ median(Age)
 ```
 ### Graphical representation of the median:
 
-```{r,warning=FALSE}
+```{r,warning=FALSE,echo=FALSE}
 hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=median(Age),col="green",lwd=3)# line indicating the mean
+abline(v=median(Age),col="green",lwd=3)# line indicating the median
 legend("topright",c("median"),lwd=4,col=c("green"))
 
 ```
@@ -140,9 +157,9 @@ Mode(Age)
 ```
 ### Graphical representation of the mode:
 
-```{r,warning=FALSE}
+```{r,warning=FALSE,echo=FALSE}
 hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=Mode(Age),col="red",lwd=3)# line indicating the mean
+abline(v=Mode(Age),col="red",lwd=3)# line indicating the mode
 legend("topright",c("mode"),lwd=4,col=c("red"))
 
 ```
@@ -160,4 +177,28 @@ Cons of the mode:
 * More than one Mode in a dataset.
 * The calculation of the mode does not use all the data.
 
+## All in one plot
+The figure below shows a histogram of 3000 attendees age observations at a Wiggles concert:
+```{r,warning=FALSE,echo=FALSE}
+#png("First_Moment.png", width = 4, height = 3, units = 'in', res = 200)
+Age<-c(rnorm(2000,10,1.5),rnorm(1000,40,6))
+
+hist(Age,col="lightblue",xlab="Age (years)",ylab=NULL,main=NULL,breaks=300,cex=0.5) # Histogram of the 7 numbers
+abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
+abline(v=median(Age),col="green",lwd=3)# line indicating the mean
+abline(v=Mode(Age),col="red",lwd=3)# line indicating the mean
+legend("topright",c("mean","median","mode"),lwd=c(3,3,3),lty=c(1,1,1),col=c("blue","green","red"))
+#dev.off()
+library(ggplot2)
+Age<-c(rnorm(2000,10,1.5),rnorm(1000,40,6))
+
+df <- data.frame(Age)
+ggplot(df, aes(x=Age)) +  geom_histogram(color="black", fill="white",binwidth = 1)+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=mean(Age),col="blue",size=1,labels="mean")+
+  geom_text(aes(x=mean(Age), label="mean", y=600), colour="blue",  text=element_text(size=11))+
+geom_vline(xintercept=median(Age),col="green",size=1)+
+  geom_text(aes(x=median(Age), label="median", y=600), colour="green",  text=element_text(size=11))
+ggsave("middle.png",dpi=300, width = 4, height = 2.5)
+
+
+```
 

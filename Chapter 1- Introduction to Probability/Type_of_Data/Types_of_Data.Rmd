@@ -1,0 +1,107 @@
+---
+title: "Types of Data"
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE,echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr)
+```
+
+# Types of Data
+
+1. Categorical
+
+2. Ordinal
+
+3. Interval
+
+4. Ratio
+
+
+## Categorical Data
+### Definition:
+
+Categorical data is the statistical data type consisting of categorical variables or of data that has been converted into that form, for example as grouped data.
+
+### Example of Categorical Data
+If you ask a number of people their age, you can categorise them into age groups. Each person can only be assigned to one age group.
+This kind of data can be illustrated as a pie chart or a bar chart.
+
+
+```{r, echo=FALSE}
+Ages<-c("0-14yrs","15-21yrs","22-40 yrs","41-65yrs","65+ years")
+N<-c(4000,3000,2000,2000,3500)
+Dublin<-data.frame(N,Ages)
+
+ggplot(Dublin, aes(x="", y=N,fill=Ages))+geom_bar(stat="identity", width=1)+ coord_polar("y", start=0)+ ggtitle("Pie Chart of Age Category")
+
+ggplot(Dublin, aes(x=Ages, y=N,fill=Ages))+geom_bar(stat="identity")+ theme(legend.position = "none")+ ggtitle("Bar Chart of Age Category")
+
+```
+
+## Ordinal Data
+### Definition:
+
+Ordinal data is a categorical, statistical data type where the variables have natural, ordered categories and the distances between the categories is not known. 
+
+## Example:
+A survey asked, "Do you like Marmite?" and gave 5 possible response:
+
+1. Strongly Disagree
+
+2. Disagree
+
+3. Neutral
+
+4. Agree
+
+5. Strongly Agree
+
+```{r, echo=FALSE}
+
+Marmite<-data.frame(N=c(30,10,2,10,20),Groups=factor(c("Strongly Disagree","Disagree","Neutral","Agree","Strongly Agree"),levels=c("Strongly Disagree","Disagree","Neutral","Agree","Strongly Agree")))
+
+ggplot(Marmite, aes(x=Groups, y=N))+geom_bar(stat="identity", position=position_dodge())+ theme(legend.position = "none")+ ggtitle("Do you like Marmite?")
+
+
+```
+
+## Interval Data
+### Definition:
+
+Interval data is defined as a data type which is measured along a scale, each step in the scale has the same meaning.
+
+## Example:
+Height is a lovely example of interval data a centimeter is always a centimeter.
+
+```{r, echo=FALSE}
+Demographics<-data.frame(
+                Height<-rnorm(1000,165,15),
+                Weight=round(c(rnorm(200, mean=55, sd=5)))
+)
+ggplot(Demographics,aes(x=Height)) + geom_histogram()+ ggtitle("Height Histogram")+xlab("Height (cm)")
+
+```
+
+## Interval Data
+### Definition:
+
+Interval data is defined as a data type which is measured along a scale, each step in the scale has the same meaning.
+
+## Example:
+People Height Distribution
+
+```{r, echo=FALSE}
+Height<-rnorm(1000,165,15)
+BMI<-rnorm(1000,20,5)
+Weight<-(Height/100)*(Height/100)*BMI
+
+Demographics<-data.frame(Height,Weight,BMI)
+ggplot(Demographics,aes(x=BMI)) + geom_histogram()+ ggtitle("BMI Histogram")+xlab(bquote(Weight(kg)/(Height(m))^2))
+
+```
