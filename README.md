@@ -5,8 +5,6 @@ This course is an introduction to probability and statistical inference with R. 
 
 1. Introduction to Probability:
    - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location_Second_Moment.html);
-   - [Measures of Location](Chapter%201-%20Introduction%20to%20Probability/Measures_of_Location.Rmd);
-
    - Counting;
    - Conditional Probability and Bayes Law.
 2. Introduction to Distributions:
@@ -28,15 +26,11 @@ This course is an introduction to probability and statistical inference with R. 
 
 ## References
 ### Essential Reading: (author, title, publisher)
-Sedgewick R.,-  Algorithims, Addison Wesley 4th Edition website, 2011
 
-Navathe E., - Fundamentals of Database Systems, Addison Wesley, 3rd Edition, 2002
+Devore & Peck  - Statistics: The exploration and analysis of data, 2011.
+
 
 ### Supplemental Reading: (author - title, publisher, date)
-
-Deitel & Deitel, C – How to Program, Prentice Hall, 3rd Edition, 2001
-
-Knuth, D. – The Art of Computer Programming, Addison Wesley,  2011
 
 Gareth, J, et al. - An introduction to statistical learning. Vol. 112. New York: springer, 2013.
 
