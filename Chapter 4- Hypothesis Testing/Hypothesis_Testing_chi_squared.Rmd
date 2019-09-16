@@ -1,0 +1,57 @@
+---
+title: "Chi-squared Hypothesis Testing"
+output: word_document
+---
+# Chi-squared Tests
+## Goodness of Fit
+
+### Example 1 
+Use the Chi-squared test to investigate if the observed data is different from the predicted data
+
++ i For a normal distribution with mean 170cm and mean 10cm
+
+```{r,echo=FALSE, warning=FALSE}
+library(knitr)
+library(ggplot2)
+Bins<-c("<160" ,"160-170" ,"170-180", "180-")
+Observed<-c(3,3,7,2)
+Expected<-c(2.4,5.1,5.1,2.4)
+
+df<-data.frame(Bins,Observed,Expected)
+kable(df,label = "test")
+
+ggplot(df,aes(x=Bins))+geom_point(aes(y=Observed),shape=15,color="red",size=3)+geom_point(aes(y=Expected),shape=16,size=3,fill="blue")+geom_line(aes(x=Bins,y=Expected),color="blue")
+
+chisq.test(Observed, p = Expected/sum(Expected))
+
+```
+
++ ii For a flat distribution
+
+```{r,echo=FALSE, warning=FALSE}
+Expected<-c(3.75, 3.75, 3.75, 3.75)
+df<-data.frame(Bins,Observed,Expected)
+kable(df)
+chisq.test(Observed, p = Expected/sum(Expected))
+
+```
+## Test of Independence 
+An ice-cream company had 500 people sample one of three different ice-cream 
+flavours and asked them to say whether they liked or disliked the ice-cream. The resulting observed data is presented in the table below
+
+
+
+```{r,echo=FALSE,warning=FALSE}
+
+Icecream<-matrix(c(130,170,100,20,30,50),ncol =3,byrow=TRUE)
+rownames(Icecream)<-c("Liked","Disliked")
+colnames(Icecream)<-c("Vanilla","Chocolate","Strawberry")
+Icecream
+```
+Conduct a hypothesis test to determine if these data supply evidence (alpha = 0.05) that the enjoyment of the ice-cream depends on the flavour
+
+```{r,echo=FALSE,warning=FALSE}
+
+chisq.test(Icecream)
+
+```

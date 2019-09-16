@@ -1,0 +1,26 @@
+---
+title: "Linear Regression Tutorial Sheet Solutions"
+output: word_document
+---
+```{r}
+MYPEARSON<-read.csv("PearsonLeeSimple.csv")
+Pearson_child_parent<-lm(child~parent,data=MYPEARSON)
+summary(Pearson_child_parent)
+```
+
+```{r}
+
+library(ggplot2)
+
+Pearson_child_height_gp_model<-lm(child~parent+gp,data=MYPEARSON)
+
+summary(Pearson_child_height_gp_model)
+ggplot(MYPEARSON, aes(x=parent, y=child)) +ylab("Child Height (in)")+xlab("Parent Height (in)")+
+    geom_point(shape=1) +
+    scale_colour_hue(l=50) + # Use a slightly darker palette than normal
+    geom_smooth(method=lm,   # Add linear regression lines
+                se=FALSE)+    # Don't add shaded confidence region
+    scale_color_discrete(name = "Parent")
+
+ggsave("Linear_Regression.png",dpi=300, width = 4, height = 2)
+```

@@ -1,0 +1,71 @@
+---
+title: "Shopping"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Read in Data
+
+
+```{r}
+Data<-read.csv("Shopping.csv")
+summary(Data)
+
+```
+## Simple One Variable Linear Regression
+### Spend as a function of Age
+
+```{r}
+
+
+SpendAge = lm(Spend ~ Age,  data = Data) 
+
+summary(SpendAge) 
+plot(Spend ~ Age,  data = Data) 
+abline(lm(Spend~Age,  data = Data))
+```
+### Spend as a function of Height
+```{r}
+SpendHeight = lm(Spend ~ Height,  data = Data) 
+
+summary(SpendHeight) 
+plot(Spend ~ Height,  data = Data) 
+abline(lm(Spend~Height,  data = Data))
+
+```
+
+## Two Variable Linear Regression
+### Spend as a function of Age and MacBeth
+
+```{r}
+library(ggplot2)
+SpendMacBeth = lm(Spend~Age+MacBeth,data=Data)
+summary(SpendMacBeth)
+
+ggplot(Data, aes(x = Age, y = Spend,shape=MacBeth)) + 
+  geom_point() +
+  stat_smooth(method = "lm")
+
+```
+
+
+## Multiple Variable Linear Regression
+
+```{r}
+ 
+SpendAll<-lm(Spend~Age+MacBeth+Loyalty+factor(FamilySize),data=Data)
+summary(SpendAll)
+
+ggplot(Data, aes(x = Age, y = Spend,shape=MacBeth,color=FamilySize,fill=Loyalty,alpha=Loyalty)) + 
+  geom_point() +
+  stat_smooth(method = "lm")
+
+
+```
+

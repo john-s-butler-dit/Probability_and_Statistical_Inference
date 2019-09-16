@@ -1,0 +1,82 @@
+---
+title: "Butler"
+author: "John S Butler"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## READIN DATA
+
+
+```{r}
+
+ButlerData<-read.csv("Butler.csv")
+summary(ButlerData)
+
+
+```
+## Logistic Regression
+### Age
+```{r}
+
+ButlerAge = glm(Conversion ~ Age,  data=ButlerData ,family=binomial("logit")) 
+summary(ButlerAge) 
+plot(Conversion ~ Age,  data = ButlerData) 
+
+```
+
+### Distance
+
+```{r}
+ButlerDistance = glm(Conversion ~ Distance,  data = ButlerData,family=binomial("logit")) 
+
+summary(ButlerDistance) 
+library(ggplot2)
+ggplot(ButlerData, aes(x=Distance, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+```
+
+### Angle
+
+```{r}
+
+ButlerAngle = glm(Conversion ~ Angle,  data = ButlerData,family=binomial("logit")) 
+summary(ButlerAngle)
+
+
+ggplot(ButlerData, aes(x=Angle, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+```
+
+### Multiple variables
+```{r}
+
+ButlerAgeDistanceLocationAngle = glm(Conversion ~ Age+Distance+Location+Angle,  data = ButlerData,family=binomial("logit")) 
+summary(ButlerAgeDistanceLocationAngle)
+```
+
+
+
+
+### Making a new Angle
+```{r}
+
+ButlerData$AngleSq<-ButlerData$Angle*ButlerData$Angle
+
+ButlerAngleSq = glm(Conversion ~ Distance+AngleSq,  data = ButlerData,family=binomial("logit")) 
+summary(ButlerAngleSq)
+ggplot(ButlerData, aes(x=AngleSq, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+
+```
+

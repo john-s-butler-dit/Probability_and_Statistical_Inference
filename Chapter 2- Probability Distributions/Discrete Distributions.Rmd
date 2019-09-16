@@ -1,5 +1,5 @@
 ---
-title: 'Measures of Location: First Moment'
+title: 'Discrete Distributions'
 author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
 output:
   word_document: default
@@ -8,197 +8,137 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+
 ```
 # Introduction
 
-Different aspects of a distribution of data can be summarised by the measures of location:
-
-1. The First Moment: Middle.
-
-2. The Second Moment: Spread.
-
-3. The Third Moment: Symmetry.
 
 
-All that being said, I would always recommend plotting the data first before anything else.
+# Binomial Distribution
 
-__A picture (histogram) is worth a thousand words.__
+## Definition:
 
-
-# First Moment: Middle
-
-## Mean (average)
-### Definition:
-
-The mean $\bar{x}$, $\mu$ is the point around which the sum of the deviations is 0.
-The formula is given by
-$$ \bar{x}=\frac{\sum_{i=1}^n x_i}{n} $$
-where $x_i$ is each element and $n$ is the number of elements.
-In words, add the numbers together and divided by how many numbers are in the list.
-
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}, the mean is:
-
-$$ \bar{x}=\frac{20+18+19+18+18+18+20}{7}=18.71429. $$
-
+{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
 
 In R code:
 
-```{r}
-Age=c(20, 18,19, 18,18,18,20) # List of 7 numbers
-## Cacluate the mean in the long form
-(20+18+19+18+18+18+19+20)/7
-## Cacluate the mean using the function mean
-mean(Age) # The mean of the list
+
+
+```{r,echo=FALSE}
+Games<-0:10
+Pr_ireland_win<-0.1
+Pr_win<-c(dbinom(0:10,10,Pr_ireland_win))
+Cum_Pr_win<-c(pbinom(0:10,10,Pr_ireland_win))
+
+df <- data.frame(Games,Pr_win,Cum_Pr_win)
+binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins \n out of 10 games")+ylab("Pr of Wins")+ggtitle("Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
+theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+
+binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+ylab("Pr(<= Irish Wins)")+xlab("Number of Irish Wins \n out of 10 games")+ggtitle("Cummulative Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
+theme(text = element_text(size=8))
+
+ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+ggsave("Binomial.png",dpi=300, width = 4, height = 2)
 
 ```
-### Graphical representation of the mean:
 
-```{r,warning=FALSE,echo=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
-legend("topright",c("mean"),lwd=4,col=c("blue"))
+# Geometric Distribution
 
+## Definition:
 
-```
-
-
-### Mean Pros and Cons
-Pros of the mean:
-
-* The mean is easy to calculate.
-
-* The mean is well known and understood.
-
-Cons of the mean:
-* The mean is  senstitive to extreme values.
-
-Given the list of the ages of  8 people at a concert {20,18,19, 18,56, 18,18,20}, the mean is:
-
-$$ \bar{x}=\frac{20+18+19+18+18+56+18+20}{8}=23.375. $$
-
+{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
 
 In R code:
 
-```{r}
-Age=c(20,18,19, 18,56, 18,18,20) # List of 8 ages
-## Cacluate the mean using the function mean
-mean(Age) # The mean of the list
+
+
+```{r,echo=FALSE}
+Games<-0:20
+Pr_ireland_win<-0.1
+Pr_win<-c(dgeom(Games,Pr_ireland_win))
+Cum_Pr_win<-c(pgeom(Games,Pr_ireland_win))
+
+df <- data.frame(Games,Pr_win,Cum_Pr_win)
+binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr(Games until Ireland Win)")+ggtitle("Geometric \n Distribution")+scale_x_continuous(breaks=Games)+
+theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+
+binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr <= Wins")+ggtitle("Cummulative Geometric\n Distribution")+scale_x_continuous(breaks=Games)+
+theme(text = element_text(size=8))
+ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+ggsave("Geometric.png",dpi=300, width = 4, height = 2)
 
 ```
-## Median
 
-### Definition:
 
-The median is the middle values of an ordered list.
+# Poisson Distribution
 
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}. 
+## Definition:
 
-1. First the list has to be ordered
-  {18,18,18,18,19,20,20}.
-  
-2. Then the middle of the list found
-  {18,18,18,*18*,19,20,20}.
-  
-The median is 18.
-
+{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
 
 In R code:
 
-```{r}
-Age=c(20,18,19,18,18,18,20) # List of 7 numbers
-
-median(Age)
-
-```
-### Graphical representation of the median:
-
-```{r,warning=FALSE,echo=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=median(Age),col="green",lwd=3)# line indicating the median
-legend("topright",c("median"),lwd=4,col=c("green"))
-
-```
-### Median Pros and Cons
-Pros of the median:
-
-* The median is the centre of the data - very intuitive.
-* Not as sensitive as the mean to extreme values.
- 
 
 
-Cons of median:
-* The calculation of the median does not use all data.
-* Sorting a long list can be computationally expensive.
+```{r,echo=FALSE}
+Games<-0:10
+Pr_ireland_win<-1
+Pr_win<-c(dpois(0:10,Pr_ireland_win))
+Cum_Pr_win<-c(ppois(0:10,Pr_ireland_win))
 
-## Mode
-
-### Definition:
-
-The mode is the most commonly occurring value in the distribution.
-
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}. 
-The most frequent values is 18, so 18 in the mode.
-
-
-### In R code:
-
-```{r}
-Age=c(20,18,19,18,18,18,20) # List of 7 numbers
-# Function to calculate mode
-Mode <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
-}
-Mode(Age)
+df <- data.frame(Games,Pr_win,Cum_Pr_win)
+binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr of Irish Wins")+ggtitle("Poisson \n Distribution")+scale_x_continuous(breaks=0:10)+
+theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr <= number of Irish Wins")+ggtitle("Cummulative Poisson \n Distribution")+scale_x_continuous(breaks=0:10) +
+theme(text = element_text(size=8))
+ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+ggsave("Poisson.png",dpi=300, width = 4, height = 2)
 
 ```
-### Graphical representation of the mode:
+# Normal Distribution
 
-```{r,warning=FALSE,echo=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=Mode(Age),col="red",lwd=3)# line indicating the mode
-legend("topright",c("mode"),lwd=4,col=c("red"))
+## Definition:
 
+{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
+
+In R code:
+
+
+
+```{r,echo=FALSE}
+Z<-seq(-4,4,by=0.1)
+Pr_ireland_win<-0.1
+Pr_win<-c(dnorm(Z))
+Cum_Pr_win<-c(pnorm(Z))
+
+df <- data.frame(Z,Pr_win,Cum_Pr_win)
+binomial.p_dist<-ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(width = 0.1)+xlab("Z-score")+ylab("Pr of Z ")+ggtitle("Gaussian (Normal) \n Distribution")+
+theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+
+binomial.cum_p_dist<-ggplot(df, aes(x=Z,y=Cum_Pr_win)) + geom_line(width = 0.1)+ylab("Pr(<= Z)")+xlab("Z -score")+ggtitle("Cummulative Gaussian \n Distribution")+
+theme(text = element_text(size=8))
+
+ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+ggsave("Normal.png",dpi=300, width = 4, height = 2)
 ```
 
 
-### Median Pros and Cons
-Pros of the mode:
+```{r,echo=FALSE}
 
-* The mode shows where the data is concentrated.
-
-
-
-Cons of the mode:
-
-* More than one Mode in a dataset.
-* The calculation of the mode does not use all the data.
-
-## All in one plot
-The figure below shows a histogram of 3000 attendees age observations at a Wiggles concert:
-```{r,warning=FALSE,echo=FALSE}
-#png("First_Moment.png", width = 4, height = 3, units = 'in', res = 200)
-Age<-c(rnorm(2000,10,1.5),rnorm(1000,40,6))
-
-hist(Age,col="lightblue",xlab="Age (years)",ylab=NULL,main=NULL,breaks=300,cex=0.5) # Histogram of the 7 numbers
-abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
-abline(v=median(Age),col="green",lwd=3)# line indicating the mean
-abline(v=Mode(Age),col="red",lwd=3)# line indicating the mean
-legend("topright",c("mean","median","mode"),lwd=c(3,3,3),lty=c(1,1,1),col=c("blue","green","red"))
-#dev.off()
-library(ggplot2)
-Age<-c(rnorm(2000,10,1.5),rnorm(1000,40,6))
-
-df <- data.frame(Age)
-ggplot(df, aes(x=Age)) +  geom_histogram(color="black", fill="white",binwidth = 1)+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=mean(Age),col="blue",size=1,labels="mean")+
-  geom_text(aes(x=mean(Age), label="mean", y=600), colour="blue",  text=element_text(size=11))+
-geom_vline(xintercept=median(Age),col="green",size=1)+
-  geom_text(aes(x=median(Age), label="median", y=600), colour="green",  text=element_text(size=11))
-ggsave("middle.png",dpi=300, width = 4, height = 2.5)
+ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(size=1)+ylab("Pr(Z)")+xlab("Z-score")+
+                                ggtitle("Confidence Intervals")+
+                                theme(text = element_text(size=8))+
+                                geom_vline(xintercept = 1.96, linetype="dotted",color = "darkgray", size=0.5)+
+                                geom_vline(xintercept = -1.96, linetype="dotted",color = "darkgray", size=0.5)+
+                                geom_vline(xintercept = 2.58, linetype="dashed", color = "black", size=0.5)+
+                                geom_vline(xintercept = -2.58, linetype="dashed",color = "black", size=0.5)+
+                                geom_segment(aes(x = -1.96, y = 0.42, xend = 1.96, yend = 0.42),linetype="dotted",color="darkgray")+
+                                geom_segment(aes(x = -2.58, y = 0.5, xend = 2.58, yend = 0.5),linetype="dashed")+
+                                geom_text(aes(x=0, label="95% Confidence Interval",y=0.46),vjust=1,size=2,color="darkgray")+
+                                geom_text(aes(x=0, label="99% Confidence Interval",y=0.54),vjust=1,size=2)
 
 
+ggsave("CI_Normal.png",dpi=300, width = 4, height = 2)
 ```
-

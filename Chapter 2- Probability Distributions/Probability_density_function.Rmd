@@ -1,0 +1,119 @@
+---
+title: "Continuous Probability Distributions"
+author: "John S Butler"
+date: "4 November 2015"
+output: word_document
+---
+## HIST AND GAUSSIAN FUNCTION
+```{r}
+library(ggplot2)
+MYPEARSON<-read.csv("PearsonLeeSimple.csv")
+dat <- data.frame( x=MYPEARSON$child, above=MYPEARSON$child>=68&MYPEARSON$child<=70 )
+
+a<-ggplot(dat)
+a+geom_histogram(aes(x=x),binwidth=2,fill="skyblue")+ ggtitle("Child Height")+xlab("Height")
+
+a<-ggplot(dat)
+a+geom_histogram(aes(x=x,fill=above),binwidth=2)+ ggtitle("Child Height")+xlab("Height")+scale_fill_manual(values = c("skyblue", "royalblue"),name="Groups",labels=c("Group 1", "between 68 and 70inches"))
+
+
+a<-ggplot(dat)
+a+geom_bar(aes(x=x/746),binwidth=2,fill="skyblue")+ ggtitle("Child Height")+xlab("Height")
+
+
+
+
+
+```
+
+```{r}
+
+test <- rnorm(1000)
+dat <- data.frame( x=test, above=test>0&test<1 )
+
+qplot(x,data=dat,geom="histogram",fill=above)
+
+
+cord.x <- c(0,seq(0,3,0.001),1) 
+cord.y <- c(0,dnorm(seq(0,3,0.001)),0) 
+
+curve(dnorm(x,0,1),xlim=c(-3,3),main='Normal Distribution') 
+polygon(cord.x,cord.y,col='grey')
+
+cord.x <- c(-1,0,0,4,4,6) 
+cord.y <- c(0, 0,0.25,0.25,0,0) 
+plot(cord.x,cord.y)
+polygon(cord.x,cord.y,col='grey')
+
+normalpdf <- data.frame( x=seq(-3,3,0.001), y=dnorm(seq(-3,3,0.001)) )
+
+
+ggplot(data=normalpdf,aes(x,y)) + geom_jitter()
+
+normalpdf <- data.frame( x=rnorm(600001))
+temp<-ggplot(normalpdf,aes(x))
+temp+geom_density()
+temp+geom_histogram()
+
+```
+
+```{r}
+shade_under_curve <- function(fun, xmin, xmax, length=100){
+  xvals <- seq(xmin, xmax, length=length)
+  dvals <- match.fun(fun)(xvals)
+  polygon(c(xvals,rev(xvals)),c(rep(0,length),rev(dvals)),col="gray")
+}
+
+
+y1 <- function(x)sapply(x, function(xt)dnorm(xt,mean=0,sd=1))
+y2 <- function(x)sapply(x, function(xt)dnorm(xt,mean=3,sd=2))
+
+my.fun <- function(x){sapply(x, function(xt)min(y1(xt), y2(xt)))}
+
+plot(y1, -10, 10, col="red")
+curve(y2, add=TRUE, col="blue")
+shade_under_curve(my.fun, -10, 10, length=1000)
+
+test <- rnorm(1000)
+dat <- data.frame( x=test, above=test>0&test<1 )
+
+qplot(x,data=dat,geom="histogram",fill=above)
+
+
+cord.x <- c(0,seq(0,3,0.001),1) 
+cord.y <- c(0,dnorm(seq(0,3,0.001)),0) 
+
+curve(dnorm(x,0,2),xlim=c(-3,3),main='Normal Distribution') 
+
+
+curve(dnorm(x,0,2),xlim=c(-3,3),main='Normal Distribution') 
+
+
+curve(dnorm(x,0,.2),xlim=c(-3,3),main='Normal Distribution') 
+
+
+curve(dnorm(x,-1,1),xlim=c(-3,3),main='Normal Distribution') 
+curve(dnorm(x,1,1),xlim=c(-3,3),main='Normal Distribution') 
+x<-c(seq(60,140,0.1))
+curve(dnorm(x,100,15),xlim=c(60,140),main='Intelligence Quotient') 
+
+x<-(c(seq(60,140,0.1))-100)/15
+curve(dnorm((x),0,1),xlim=c(-40/15,40/15),main='Standard Intelligence Quotient') 
+x<-(c(seq(-9,9,0.01)))
+y1<-dnorm(x,0,3)
+y2<-dnorm(x,0,4)
+y3<-dnorm(x,0,5)
+
+plot(x,y1,type="l",col="red")
+lines(x,y2,col="green")
+lines(x,y3,col="blue")
+
+
+x<-c(seq(-1,6,0.01))
+
+unif_rand<-runif(8000)
+
+```
+
+
+

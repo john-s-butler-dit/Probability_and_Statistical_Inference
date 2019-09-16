@@ -1,0 +1,75 @@
+---
+title: "Hypothesis Testing Solutions"
+output: word_document
+---
+# Z- test
+
+## Example 1
+The mean height from the entire of men and women in the population is 170cm. You
+want to check if there is a statistically significant difference (with a significance level of
+95%) between the means of the sample and the population.
+Calculate the z-test to test is the observed data is different from the population data for
+
++ i 10 men of height: 179, 188, 172, 185, 171, 199, 176, 188, 158, 200
+
+```{r}
+data<-c(179, 188, 172, 185, 171, 199, 176, 188, 158, 200)
+
+t.test(data,mu=170)
+```
+
++ ii 12 women of height: 175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152
+```{r}
+data<-c(175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152)
+
+t.test(data,mu=170)
+```
++ iii 7 women and 8 men of height: 166, 189, 180, 193, 148, 174, 161, 170, 172, 179, 158, 157, 176, 171, 174
+```{r}
+data<-c(166, 189, 180, 193, 148, 174, 161, 170, 172, 179, 158, 157, 176,171, 174)
+
+t.test(data,mu=170)
+```
+
++ iv Compare the height of the 10 men and the 12 women
+
+```{r}
+men<-c(179, 188, 172, 185, 171, 199, 176, 188, 158, 200)
+women<-c(175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152)
+t.test(men,women,paired=FALSE)
+
+```
+
+
+### QUESTION 2. 
+A survey claims that 8 out of 10 doctors recommend aspirin for their patients with headaches. To test this claim, a random sample of 100 doctors is obtained. Of these 95 doctors, 82 indicate that they recommend aspirin.
+
+Calculate the z-test to test is the observed data different from the population data.
+
+```{r}
+p0<-0.8
+
+q0<-1-p0
+p<-82/95
+n<-95
+Z<-(p-p0)/sqrt(p0*q0/n)
+Z
+```
+
+# t-test
+### QUESTION 3 
+Read in the PearsonLeeSimple.csv data. Using an unpaired t-test compare:
+
+* the heights of children and parents,
+* within in the parents compared the Height of Mothers and Fathers.
+
+```{r}
+# JB_PEARSON<-read.csv("PearsonLeeSimple.csv")
+
+# t.test(JB_PEARSON$parent,JB_PEARSON$child,paired=FALSE)
+# t.test(JB_PEARSON$parent~JB_PEARSON$par,paired=FALSE)
+
+
+```
+
+

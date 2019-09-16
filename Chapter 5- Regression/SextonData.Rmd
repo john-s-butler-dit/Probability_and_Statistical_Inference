@@ -1,0 +1,82 @@
+---
+title: "Sexton"
+author: "John S Butler"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## READIN DATA
+
+
+```{r}
+
+SextonData<-read.csv("Sexton.csv")
+summary(SextonData)
+
+
+```
+## Logistic Regression
+### Age
+```{r}
+
+SextonAge = glm(Conversion ~ Age,  data=SextonData ,family=binomial("logit")) 
+summary(SextonAge) 
+plot(Conversion ~ Age,  data = SextonData) 
+
+```
+
+### Distance
+
+```{r}
+SextonDistance = glm(Conversion ~ Distance,  data = SextonData,family=binomial("logit")) 
+
+summary(SextonDistance) 
+library(ggplot2)
+ggplot(SextonData, aes(x=Distance, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+```
+
+### Angle
+
+```{r}
+
+SextonAngle = glm(Conversion ~ Angle,  data = SextonData,family=binomial("logit")) 
+summary(SextonAngle)
+
+
+ggplot(SextonData, aes(x=Angle, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+```
+
+### Multiple variables
+```{r}
+
+SextonAgeDistanceLocationAngle = glm(Conversion ~ Age+Distance+Location+Angle,  data = SextonData,family=binomial("logit")) 
+summary(SextonAgeDistanceLocationAngle)
+```
+
+
+
+
+### Making a new Angle
+```{r}
+
+SextonData$AngleSq<-SextonData$Angle*SextonData$Angle
+
+SextonAngleSq = glm(Conversion ~ Distance+AngleSq,  data = SextonData,family=binomial("logit")) 
+summary(SextonAngleSq)
+ggplot(SextonData, aes(x=AngleSq, y=Conversion)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+
+
+```
+
