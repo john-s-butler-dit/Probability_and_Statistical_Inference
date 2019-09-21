@@ -1,163 +1,62 @@
 ---
 title: "Mathematical Probability"
-author: "[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)"
-output: html_document
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# First Moment
-
-## Mean (average)
-### Definition:
-
-The mean $\bar{x}$ is the point around which the sum of the deviations is 0.
-The formula is given by
-$$ \bar{x}=\frac{\sum_{i=1}^n x_i}{n} $$
-where $x_i$ is each element and $n$ is the number of elements.
-In words, add the numbers together and divided by how many numbers are in the list.
-
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}, the mean is:
-
-$$ \bar{x}=\frac20+18+{19+18+18+18+20}{7}=18.71429. $$
 
 
-In R code:
+# Definitions
+
+Define some event $A$ that can be the outcome of an experiment.
+$\text{Pr}(A)$ is the probability of a given event $A$ will happen.
+Rules:
+
+1. $\text{Pr}(A)$ is between $0$ and $1$, $0\leq Pr(A) \leq 1$;
+
+2. $\text{Pr}(A)=1$, means it will definitely happen;
+
+3. $\text{Pr}(A)=0$, means it will definitely \textbf{not} happen;
+
+4. $\text{Pr}(A)=0.05$, is arbitrarily considered unlikely.
+  
+
+# Sample Space and Events
+The \textbf{Sample Space}, $S$, of an experiment is the universal set of all possible outcomes for that experiment, defined so, no two outcomes can occur simultaneously. For example:
+
+
+
+## Axioms of Probabilities
+An event, $A$, is a subset, $\subset$, of the Sample Space
+ associated a number $Pr(A)$, the probability of $A$, which must have the following properties
+
+1. If $Pr(A \bigcap B)=0$, then $\text{Pr}(A \bigcup B)= \text{Pr}(A)+\text{Pr}(B)$;
+
+2.  Probability of the Null Event $\text{Pr}(\emptyset)=0$;
+
+3. The probability of the complement of $A,$ $\text{Pr}(\bar{A})=1-\text{Pr}(A)$;
+
+4. $\text{Pr}(A \bigcup B)= \text{Pr}(A)+\text{Pr}(B)-\text{Pr}(A\bigcap B)$.
+
+## Example: Dice
+
+For a die the Sample Space is all the faces of the die $$S=\{1,2,3,4,5,6\}.$$ The probability of each event is $$\frac{1}{6}.$$
+
 
 ```{r}
-Age=c(20, 18,19, 18,18,18,20) # List of 7 numbers
+Events<-c("1","2","3","4","5","6") # List of 7 numbers
 ## Cacluate the mean in the long form
-(20+18+19+18+18+18+19+20)/7
+Pr<-c(1/6,1/6,1/6,1/6,1/6,1/6)
 ## Cacluate the mean using the function mean
-mean(Age) # The mean of the list
-
-```
-### Graphical representation of the mean:
-
-```{r,warning=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
-legend("topright",c("mean"),lwd=4,col=c("blue"))
-
-
+Die<-data.frame(Events,Pr)
+Die
 ```
 
 
-### Mean Pros and Cons
-Pros of the mean:
-
-* The mean is easy to calculate.
-
-* The mean is well known and understood.
-
-Cons of the mean:
-* The mean is  senstitive to extreme values.
-
-Given the list of the ages of  8 people at a concert {20,18,19, 18,56, 18,18,20}, the mean is:
-
-$$ \bar{x}=\frac{20+18+19+18+18+56+18+20}{8}=23.375. $$
-
-
-In R code:
-
-```{r}
-Age=c(20,18,19, 18,56, 18,18,20) # List of 8 ages
-## Cacluate the mean using the function mean
-mean(Age) # The mean of the list
-
-```
-## Median
-
-### Definition:
-
-The median is the middle values of an ordered list.
-
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}. 
-
-1. First the list has to be ordered
-  {18,18,18,18,19,20,20}.
-  
-2. Then the middle of the list found
-  {18,18,18,*18*,19,20,20}.
-  
-The median is 18.
-
-
-In R code:
-
-```{r}
-Age=c(20,18,19,18,18,18,20) # List of 7 numbers
-
-median(Age)
-
-```
-### Graphical representation of the median:
-
-```{r,warning=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=median(Age),col="green",lwd=3)# line indicating the mean
-legend("topright",c("median"),lwd=4,col=c("green"))
-
-```
-### Median Pros and Cons
-Pros of the median:
-
-* The median is the centre of the data - very intuitive.
-* Not as sensitive as the mean to extreme values.
- 
-
-
-Cons of median:
-* The calculation of the median does not use all data.
-* Sorting a long list can be computationally expensive.
-
-## Mode
-
-### Definition:
-
-The mode is the most commonly occurring value in the distribution.
-
-### Example
-Given the list of 7 ages at a concert {19,18,20,18,18,18,20}. 
-The most frequent values is 18, so 18 in the mode.
-
-
-### In R code:
-
-```{r}
-Age=c(20,18,19,18,18,18,20) # List of 7 numbers
-# Function to calculate mode
-Mode <- function(x) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
-}
-Mode(Age)
-
-```
-### Graphical representation of the mode:
-
-```{r,warning=FALSE}
-hist(Age,col="lightblue",xlab="Age (years)") # Histogram of the 7 numbers
-abline(v=Mode(Age),col="red",lwd=3)# line indicating the mean
-legend("topright",c("mode"),lwd=4,col=c("red"))
-
-```
-
-
-### Median Pros and Cons
-Pros of the mode:
-
-* The mode shows where the data is concentrated.
-
-
-
-Cons of the mode:
-
-* More than one Mode in a dataset.
-* The calculation of the mode does not use all the data.
-
-
+For the die example a Sample Space, such as $A=\{2,3\}=2 \bigcup 3$. 
+Given $Pr(2 \bigcap 3)=0$, then $$\text{Pr}(2 \bigcup 3)= \text{Pr}(2)+\text{Pr}(3)=\frac{1}{6}+\frac{1}{6}.$$

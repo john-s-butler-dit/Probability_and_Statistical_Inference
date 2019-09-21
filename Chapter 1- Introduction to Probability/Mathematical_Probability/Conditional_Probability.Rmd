@@ -1,0 +1,41 @@
+---
+title: "Conditional Probability"
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+The Conditional Probability $\Pr(A|B)$ denotes the probability of the event $A$ occurring given that the event $B$ has occurred,
+$$ \Pr(A|B)=\frac{\Pr(A\bigcap B)}{\Pr(B)}.$$
+
+# Example: The rain in Ireland
+
+A normal probability would be what is the probability it is going to rain. $\Pr(\text{rain})$.
+
+A conditional probability would, be what is the probability it is going to rain \textbf{given} that you are in Ireland, $\Pr(\text{rain}|\text{Ireland}),$
+
+$$ \Pr(\text{rain}|\text{Ireland})=\frac{\Pr(\text{rain} \bigcap \text{Ireland})}{\Pr(\text{Ireland})},$$
+
+where the probability of rain is $\Pr(\text{rain})=0.3$, the probability of being in Ireland is $\Pr(\text{Ireland})=0.4)$ and the probability of being in Ireland and it raining is $\Pr(\text{rain}\bigcap \text{Ireland})=0.2$. Given these numbers we can calculate
+
+$$ \Pr(\text{rain}|\text{Ireland})=\frac{0.2}{0.4}=0.5,$$
+
+You could be interested in the probability that you are in Ireland \textbf{given} that it is raining, 
+$$ \Pr(\text{Ireland}|\text{rain})=\frac{\Pr(\text{rain}\bigcap \text{Ireland})}{\Pr(\text{rain})}=\frac{0.2}{0.3}.$$
+```{r}
+Pr_Rain<-0.3
+Pr_Ireland<-0.4
+Pr_Rain_and_Ireland<-0.2
+
+Pr_Rain_Given_Ireland<-Pr_Rain_and_Ireland/Pr_Ireland
+Pr_Rain_Given_Ireland
+Pr_Ireland_Given_Rain<-Pr_Rain_and_Ireland/Pr_Rain
+Pr_Ireland_Given_Rain
+
+```
