@@ -12,7 +12,7 @@ summary(Pearson_child_parent)
 
 library(ggplot2)
 
-Pearson_child_height_gp_model<-lm(child~parent+gp,data=MYPEARSON)
+Pearson_child_height_gp_model<-lm(child~parent,data=MYPEARSON)
 
 summary(Pearson_child_height_gp_model)
 ggplot(MYPEARSON, aes(x=parent, y=child)) +ylab("Child Height (in)")+xlab("Parent Height (in)")+

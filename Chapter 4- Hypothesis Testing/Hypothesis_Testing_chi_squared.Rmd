@@ -55,3 +55,23 @@ Conduct a hypothesis test to determine if these data supply evidence (alpha = 0.
 chisq.test(Icecream)
 
 ```
+
+```{r,echo=FALSE,warning=FALSE}
+
+
+df <- data.frame(
+  Data=factor(rep(c("Expected", "Netherlands"), each=10000)),
+  Height=round(c(rnorm(10000,175,15), rnorm(10000,180,15)))
+  )
+
+#ggplot(df, aes(x=Distrib, color=Set)) +  geom_histogram(fill="white", alpha=0.5)
+ggplot(df, aes(x=Height, color=Data,fill=Data)) +
+  geom_histogram(fill="white", bins=30,position="identity", alpha=0.5)+
+  labs(title="Height histogram plot",x="Height(cm)", y = "Count")+
+  theme_classic()+ scale_colour_grey()
+
+ggsave("GoF.png",dpi=300, width = 4, height = 2)
+
+
+
+```
