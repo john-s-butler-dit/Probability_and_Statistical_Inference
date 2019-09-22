@@ -2,9 +2,8 @@
 title: "Sexton"
 author: "John S Butler"
 output:
-  word_document: default
-  html_document:
-    df_print: paged
+  pdf_document: default
+  
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## GENERATE DATA
 
-You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 
@@ -33,7 +31,6 @@ Location[location_index<0.5]="Away"
 
 eta<-0.05*runif(N,0,1)*Age-0.1*runif(N,0,1)*Distance-0.5*runif(N,0,1)*Angle*Angle
 eta<-0.01*Age-0.2*(Distance-25)-0.01*Angle*Angle/10+rnorm(N,mean = 0,0.5)+3
-plot(eta~Age)
 P<-exp(eta)/(1+exp(eta))
 Conversion<-rep(0,N)
 Conversion[P>0.5]=1
@@ -62,7 +59,7 @@ library(ggplot2)
 ggplot(Data, aes(x=Distance, y=Conversion)) + geom_point() + 
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)+xlab("Distance (m)")+ylab("Pr(Conversion)")+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=50,col="black",size=1,linetype="dotted")+  geom_text(aes(x=53, label="Half Way Line", y=0.5),angle=90)+
   geom_vline(xintercept=0,col="black",size=1,linetype="dotted")+  geom_text(aes(x=3, label="Goal Line", y=0.5),angle=90)
-ggsave("Sexton.png",dpi=300, width = 4, height = 2.5)
+# ggsave("Sexton.png",dpi=300, width = 4, height = 2.5)
 
 
 ```

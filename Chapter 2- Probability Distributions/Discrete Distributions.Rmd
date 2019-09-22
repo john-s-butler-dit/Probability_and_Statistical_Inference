@@ -2,7 +2,6 @@
 title: 'Discrete Distributions'
 author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
 output:
-  word_document: default
   pdf_document: default
 ---
 
@@ -40,7 +39,7 @@ binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.
 theme(text = element_text(size=8))
 
 ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
-ggsave("Binomial.png",dpi=300, width = 4, height = 2)
+#ggsave("Binomial.png",dpi=300, width = 4, height = 2)
 
 ```
 
@@ -67,7 +66,7 @@ theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
 binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr <= Wins")+ggtitle("Cummulative Geometric\n Distribution")+scale_x_continuous(breaks=Games)+
 theme(text = element_text(size=8))
 ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
-ggsave("Geometric.png",dpi=300, width = 4, height = 2)
+#ggsave("Geometric.png",dpi=300, width = 4, height = 2)
 
 ```
 
@@ -94,7 +93,7 @@ theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
 binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr <= number of Irish Wins")+ggtitle("Cummulative Poisson \n Distribution")+scale_x_continuous(breaks=0:10) +
 theme(text = element_text(size=8))
 ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
-ggsave("Poisson.png",dpi=300, width = 4, height = 2)
+#ggsave("Poisson.png",dpi=300, width = 4, height = 2)
 
 ```
 # Normal Distribution
@@ -121,10 +120,10 @@ binomial.cum_p_dist<-ggplot(df, aes(x=Z,y=Cum_Pr_win)) + geom_line(width = 0.1)+
 theme(text = element_text(size=8))
 
 ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
-ggsave("Normal.png",dpi=300, width = 4, height = 2)
+#ggsave("Normal.png",dpi=300, width = 4, height = 2)
 ```
 
-
+## Confidence Intervals
 ```{r,echo=FALSE}
 
 ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(size=1)+ylab("Pr(Z)")+xlab("Z-score")+
@@ -140,5 +139,5 @@ ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(size=1)+ylab("Pr(Z)")+xlab("Z-score")+
                                 geom_text(aes(x=0, label="99% Confidence Interval",y=0.54),vjust=1,size=2)
 
 
-ggsave("CI_Normal.png",dpi=300, width = 4, height = 2)
+#ggsave("CI_Normal.png",dpi=300, width = 4, height = 2)
 ```

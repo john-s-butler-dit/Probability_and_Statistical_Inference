@@ -1,6 +1,8 @@
 ---
 title: "Linear Regression Tutorial Sheet Solutions"
-output: word_document
+output:
+  pdf_document: default
+  word_document: default
 ---
 ```{r}
 MYPEARSON<-read.csv("PearsonLeeSimple.csv")

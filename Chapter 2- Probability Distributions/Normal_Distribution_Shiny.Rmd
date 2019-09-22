@@ -4,7 +4,7 @@ output: html_document
 runtime: shiny
 ---
 
-
+This Shiny illustrates the impact of mean and variance on the shape of normal distribution.
 
 ```{r, echo=FALSE}
 library(ggplot2)
