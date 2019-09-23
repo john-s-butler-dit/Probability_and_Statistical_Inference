@@ -1,22 +1,26 @@
 ---
-title: "Linear Regression Tutorial Sheet Solutions"
+title: "Linear Regression"
 output:
   pdf_document: default
-  word_document: default
 ---
+A linear regression is used to model a linear relationship of the dependent variable $y$ and the regressors $x_1$, $x_2$, ...
+	\[  y=\beta_0+\beta_1 x_{1} +\beta_2 x_{2}+..., \]
+	where $\beta_0$, $\beta_1$ are the slopes of the regressors.
+
+	
+## Height Example
+A simple linear regression (correlation) is used to predict the height of 744 children $y$ using the height of their parent $x$,
 ```{r}
 MYPEARSON<-read.csv("PearsonLeeSimple.csv")
 Pearson_child_parent<-lm(child~parent,data=MYPEARSON)
 summary(Pearson_child_parent)
 ```
 
+
 ```{r}
 
 library(ggplot2)
 
-Pearson_child_height_gp_model<-lm(child~parent,data=MYPEARSON)
-
-summary(Pearson_child_height_gp_model)
 ggplot(MYPEARSON, aes(x=parent, y=child)) +ylab("Child Height (in)")+xlab("Parent Height (in)")+
     geom_point(shape=1) +
     scale_colour_hue(l=50) + # Use a slightly darker palette than normal
@@ -24,5 +28,12 @@ ggplot(MYPEARSON, aes(x=parent, y=child)) +ylab("Child Height (in)")+xlab("Paren
                 se=FALSE)+    # Don't add shaded confidence region
     scale_color_discrete(name = "Parent")
 
-ggsave("Linear_Regression.png",dpi=300, width = 4, height = 2)
+# ggsave("Linear_Regression.png",dpi=300, width = 4, height = 2)
 ```
+
+## Interpreting the slope of the regressot, $\beta$
+
+1. If $\beta$ is close to $0$ then this would suggest that there is little to no relationship between the variable $y$ and the regressor $x$, for extreme example, someones height ($y$) does not correlation with their teachers height $x$.
+
+2. If $\beta$ is greater than $0$ then this means that there is a positive correlation, for example, a tall person $y$ would have a tall parent $x$.
+
