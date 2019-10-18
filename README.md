@@ -1,20 +1,20 @@
 # Probability and Statistical Inference
-## [John S Butler](http://https://johnsbutler.netlify.com/)
+## [Course Website](https://sites.google.com/dit.ie/math4001/home)
+### [John S Butler](http://https://johnsbutler.netlify.com/)
 
 This course is an introduction to Probability and Statistical inference with R. Rstudio is an interface for R, to download go to the Rstudio website.
 
-[Course Website](https://sites.google.com/dit.ie/math4001/home)
 
 Course Content:
 1. Introduction to Probability:
-   - Measures of Location
+   - Measures of Location;
    - Counting;
    - Conditional Probability and Bayes Law.
 2. Introduction to Distributions:
-   - Discrete:
-     - Bernoulli;
-     - Binomial;
-     - Poisson.
+   - Discrete Distributions:
+     - Bernoulli Distribution;
+     - Binomial Distribution;
+     - Poisson Distribution.
    - Continuous:
      - Normal Distribution.
 3. Introduction to Inference.
