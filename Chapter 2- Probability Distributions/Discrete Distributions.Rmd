@@ -16,29 +16,56 @@ library(ggpubr)
 
 
 # Binomial Distribution
-
-## Definition:
-
-{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
-
-In R code:
+A Binomial Distribution is used to describe the probability distribution of $n$ experiments that have two possible outcomes "success" or "failure".
+The probability of "success" is $p$, the probability of failure is $q=1-p$.
+This gives the general deifintion of the distribution as:
+\[\Pr(k)= \left( \begin{array}{c}
+	n  \\
+	k  \\
+	\end{array} \right)p^kq^{n-k}, \ \ k=0,1,2,...n, \]
+where $k$ is the number of "successes". 
+If the data can be described using a Binomial Distribution then the expected outcome, $E[k]$ of the distribution is given by:
+\[E[k]=np,\]
+and the variance of the distribution $Var[k]$, is 
+\[Var[k]=npq.\]
+	
+### Example
+The example we shall use to illustrate the discrete distibutions is the New Zealand vs Ireland Wolrd Cup Rugby Quarter Final.
+Let's assume the probability of "success", Ireland beating New Zealand is 
+\[p=0.15,\]
+the probability of failure is 
+\[q=1-p=1-0.15=0.85.\]
+Now imagine that Ireland have to play New Zealand 10 times, this gives the Binomial Distribution
+\[\Pr(k)= \left( \begin{array}{c}
+	10  \\
+	k  \\
+	\end{array} \right)(0.15)^k(0.85)^{10-k}, \ \ k=0,1,2,...10, \]
+	where k is the number of times Ireland beats New Zealand.
+As it is a binomial Distribution we can state that the expected number of times Ireland will win is
+\[E[k]=10\times0.15=1.5,\]
+ie Ireland is only expected to win once, the variance of the distribution is 
+\[Var[k]=10\times 0.15 \times 0.85=1.35.\]
 
 
 
 ```{r,echo=FALSE}
 Games<-0:10
-Pr_ireland_win<-0.1
+Pr_ireland_win<-0.15
 Pr_win<-c(dbinom(0:10,10,Pr_ireland_win))
 Cum_Pr_win<-c(pbinom(0:10,10,Pr_ireland_win))
+E_X<- 10*Pr_ireland_win
+Var_X<-10*Pr_ireland_win*(1-Pr_ireland_win)
 
 df <- data.frame(Games,Pr_win,Cum_Pr_win)
 binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins \n out of 10 games")+ylab("Pr of Wins")+ggtitle("Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
-theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+theme(text = element_text(size=8))+ geom_vline(xintercept = E_X, 
+                color = "blue", size=1)+geom_vline(xintercept = E_X-Var_X, line="dashed",color = "blue", size=1)+
+  geom_vline(xintercept = E_X+Var_X, line="dashed",color = "blue", size=1)+geom_text(aes(x=E_X+0.1, label="E[k]", y=max(Pr_win)),vjust=2, colour="blue", angle=0, vjust = 1.2, text=element_text(size=18))
 
 binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+ylab("Pr(<= Irish Wins)")+xlab("Number of Irish Wins \n out of 10 games")+ggtitle("Cummulative Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
 theme(text = element_text(size=8))
 
-ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+ binomial.p_dist
 #ggsave("Binomial.png",dpi=300, width = 4, height = 2)
 
 ```
@@ -47,8 +74,10 @@ ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
 
 ## Definition:
 
-{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
+\[\Pr(k)=q^{(k-1)}p, \ \ k=1,2,... \]
 
+\[E[k]=\frac{1}{p}, \ \ \ Var[k]=\frac{q}{p^2}.\]
+	
 In R code:
 
 
@@ -75,8 +104,10 @@ ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
 
 ## Definition:
 
-{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
+\[\Pr(k)=\frac{\lambda^ke^{-\lambda}}{k!}, \ \ k=0,1,2,... \]
 
+\[E[k]=\lambda, \ \ \ Var[k]=\lambda. \]
+	
 In R code:
 
 
@@ -96,12 +127,15 @@ ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
 #ggsave("Poisson.png",dpi=300, width = 4, height = 2)
 
 ```
+
 # Normal Distribution
 
 ## Definition:
 
-{\displaystyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}
+\[\Pr(k)=\frac{\lambda^ke^{-\lambda}}{k!}, \ \ k=0,1,2,... \]
 
+\[E[k]=\lambda, \ \ \ Var[k]=\lambda. \]
+	
 In R code:
 
 
@@ -123,7 +157,10 @@ ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
 #ggsave("Normal.png",dpi=300, width = 4, height = 2)
 ```
 
+
 ## Confidence Intervals
+
+
 ```{r,echo=FALSE}
 
 ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(size=1)+ylab("Pr(Z)")+xlab("Z-score")+
