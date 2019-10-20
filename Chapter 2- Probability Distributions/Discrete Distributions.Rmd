@@ -46,7 +46,7 @@ As it is a binomial Distribution we can state that the expected number of times 
 ie Ireland is only expected to win once, the variance of the distribution is 
 \[Var[k]=10\times 0.15 \times 0.85=1.35.\]
 
-
+The plot below shows the Binomial Distribution for the number of times Ireland will beat New Zealand out of 10 games.
 
 ```{r,echo=FALSE}
 Games<-0:10
@@ -57,73 +57,89 @@ E_X<- 10*Pr_ireland_win
 Var_X<-10*Pr_ireland_win*(1-Pr_ireland_win)
 
 df <- data.frame(Games,Pr_win,Cum_Pr_win)
-binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins \n out of 10 games")+ylab("Pr of Wins")+ggtitle("Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
-theme(text = element_text(size=8))+ geom_vline(xintercept = E_X, 
-                color = "blue", size=1)+geom_vline(xintercept = E_X-Var_X, line="dashed",color = "blue", size=1)+
-  geom_vline(xintercept = E_X+Var_X, line="dashed",color = "blue", size=1)+geom_text(aes(x=E_X+0.1, label="E[k]", y=max(Pr_win)),vjust=2, colour="blue", angle=0, vjust = 1.2, text=element_text(size=18))
-
-binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+ylab("Pr(<= Irish Wins)")+xlab("Number of Irish Wins \n out of 10 games")+ggtitle("Cummulative Binomial \n Distribution")+scale_x_continuous(breaks=0:10)+
-theme(text = element_text(size=8))
+binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins \n out of 10 games")+ylab("Pr of Wins")+ggtitle("Binomial Distribution")+scale_x_continuous(breaks=0:10)+ geom_vline(xintercept = E_X, color = "blue", size=1)+geom_text(aes(x=E_X, label="E[k]", y=max(Pr_win)),vjust=2, colour="blue", angle=0, hjust = -0.2, text=element_text(size=18))
 
  binomial.p_dist
-#ggsave("Binomial.png",dpi=300, width = 4, height = 2)
 
 ```
 
 # Geometric Distribution
 
-## Definition:
-
+A Geometric distribution  
+is used to describe the probability distribution if you do an experiment until you succeed, the experiment has e two possible outcomes "success" or "failure".
+The probability of "success" is $p$, the probability of failure is $q=1-p$.
+This gives the general deifintion of the distribution as:
 \[\Pr(k)=q^{(k-1)}p, \ \ k=1,2,... \]
-
-\[E[k]=\frac{1}{p}, \ \ \ Var[k]=\frac{q}{p^2}.\]
+with the expected outcome of,
+\[E[k]=\frac{1}{p},\] 
+and variacne of 
+\[Var[k]=\frac{q}{p^2}.\]
 	
-In R code:
+### Example
 
+The example we shall use to illustrate the Geometric distibution is the New Zealand vs Ireland Wolrd Cup Rugby Quarter Final.
+Let's assume the probability of "success", Ireland beating New Zealand is 
+\[p=0.15,\]
+the probability of failure is 
+\[q=1-p=1-0.15=0.85.\]
+Now imagine that Ireland have to play New Zealand until Ireland wins this gives the Geometric Distribution
+\[\Pr(k)= (0.85)^{k-1}0.15, \ \ k=0,1,2,\cdots \]
+	where k is the number of games played until Ireland beats New Zealand.
+As it is a Geometic Distribution we can state that the expected number of games played until Ireland will win is
+\[E[k]=\frac{1}{0.15}=6.6667,\]
+ie it will take this many games on average for Ireland to win once, the variance of the distribution is 
+\[Var[k]=\frac{0.85}{0.15^2}.\]
 
-
+The plot below shows the Geometric Distribution for the number of times Ireland needs to play until they beat New Zealand, the x-axis only show $0$ to $20$ possible games but do note the Geometric Distribution can calculate the probability of infinite games until Ireland wins.
 ```{r,echo=FALSE}
 Games<-0:20
-Pr_ireland_win<-0.1
+Pr_ireland_win<-0.15
+E_X<-1/Pr_ireland_win
+Var_X<-(1-Pr_ireland_win)/(Pr_ireland_win**2)
 Pr_win<-c(dgeom(Games,Pr_ireland_win))
 Cum_Pr_win<-c(pgeom(Games,Pr_ireland_win))
 
 df <- data.frame(Games,Pr_win,Cum_Pr_win)
-binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr(Games until Ireland Win)")+ggtitle("Geometric \n Distribution")+scale_x_continuous(breaks=Games)+
-theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+Geometric.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr(Games until Ireland Win)")+ggtitle("Geometric  Distribution")+scale_x_continuous(breaks=Games)+ geom_vline(xintercept = E_X,  color = "blue", size=1)+geom_text(aes(x=E_X, label="E[k]", y=max(Pr_win)),vjust=2, colour="blue", angle=0, hjust = -0.2, text=element_text(size=18))
 
-binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Games until\n Ireland Win")+ylab("Pr <= Wins")+ggtitle("Cummulative Geometric\n Distribution")+scale_x_continuous(breaks=Games)+
-theme(text = element_text(size=8))
-ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
-#ggsave("Geometric.png",dpi=300, width = 4, height = 2)
+Geometric.p_dist
 
 ```
 
 
 # Poisson Distribution
-
-## Definition:
-
+A Poisson distribution  
+is used to describe the probability distribution of the average number of events in a specific time period or distance.
+The distribution is described by the average, $\lambda$,
 \[\Pr(k)=\frac{\lambda^ke^{-\lambda}}{k!}, \ \ k=0,1,2,... \]
+where $k$ is the number of times the event happens. The expeceted value of the Poisson Distribution is
+\[E[k]=\lambda, \]
+with the variance
+\[Var[k]=\lambda. \]
 
-\[E[k]=\lambda, \ \ \ Var[k]=\lambda. \]
-	
-In R code:
+### Example
+The example we shall use to illustrate the Poisson distibution is the New Zealand vs Ireland Wolrd Cup Rugby Quarter Final.
+Let's assume that over a 10 year period Ireland win on average $\lambda=2.2$ games. This gives the Poisson distribution
+\[\Pr(k)=\frac{2.2^ke^{-2.2}}{k!}, \ \ k=0,1,2,... \]
+	where k is the number of games Ireland beats New Zealand in a 10 year period that Ireland will win is 
+\[E[k]=2.2,\]
+the variance of the distribution is 
+\[Var[k]=2.2.\]
 
+The plot below shows the Poisson for the number of times Ireland will beat New Zealand given $\lambda=2.2$, the x-axis only show $0$ to $20$ possible wins but do note the Poisson Distribution can calculate the probability of infinite wins.
 
-
-```{r,echo=FALSE}
-Games<-0:10
-Pr_ireland_win<-1
-Pr_win<-c(dpois(0:10,Pr_ireland_win))
-Cum_Pr_win<-c(ppois(0:10,Pr_ireland_win))
+```{r Poisson_Plot,echo=FALSE, warning=FALSE}
+Games<-0:20
+Lambda_ireland_win<-2.2
+Pr_win<-c(dpois(Games,Lambda_ireland_win))
+Cum_Pr_win<-c(ppois(Games,Lambda_ireland_win))
+E_X<-Lambda_ireland_win
 
 df <- data.frame(Games,Pr_win,Cum_Pr_win)
-binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr of Irish Wins")+ggtitle("Poisson \n Distribution")+scale_x_continuous(breaks=0:10)+
-theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
-binomial.cum_p_dist<-ggplot(df, aes(x=Games,y=Cum_Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr <= number of Irish Wins")+ggtitle("Cummulative Poisson \n Distribution")+scale_x_continuous(breaks=0:10) +
-theme(text = element_text(size=8))
-ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+Poisson.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+xlab("Number of Irish Wins in a \n 15 year period")+ylab("Pr of Irish Wins")+ggtitle("Poisson Distribution")+ geom_vline(xintercept = E_X,  color = "blue", size=1)+geom_text(aes(x=E_X, label="E[k]", y=max(Pr_win)),vjust=2, colour="blue", angle=0, hjust = -0.2, text=element_text(size=18))
+
+
+  Poisson.p_dist
 #ggsave("Poisson.png",dpi=300, width = 4, height = 2)
 
 ```
