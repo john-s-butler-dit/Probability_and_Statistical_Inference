@@ -48,7 +48,7 @@ ie Ireland is only expected to win once, the variance of the distribution is
 
 The plot below shows the Binomial Distribution for the number of times Ireland will beat New Zealand out of 10 games.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE}
 Games<-0:10
 Pr_ireland_win<-0.15
 Pr_win<-c(dbinom(0:10,10,Pr_ireland_win))
@@ -91,7 +91,7 @@ ie it will take this many games on average for Ireland to win once, the variance
 \[Var[k]=\frac{0.85}{0.15^2}.\]
 
 The plot below shows the Geometric Distribution for the number of times Ireland needs to play until they beat New Zealand, the x-axis only show $0$ to $20$ possible games but do note the Geometric Distribution can calculate the probability of infinite games until Ireland wins.
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE}
 Games<-0:20
 Pr_ireland_win<-0.15
 E_X<-1/Pr_ireland_win
@@ -156,7 +156,7 @@ In R code:
 
 
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE}
 Z<-seq(-4,4,by=0.1)
 Pr_ireland_win<-0.1
 Pr_win<-c(dnorm(Z))
