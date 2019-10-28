@@ -1,0 +1,66 @@
+---
+title: 'Discrete Distributions'
+author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+
+```
+# Introduction
+
+
+# Normal Distribution
+
+## Definition:
+
+\[\Pr(k)=\frac{\lambda^ke^{-\lambda}}{k!}, \ \ k=0,1,2,... \]
+
+\[E[k]=\lambda, \ \ \ Var[k]=\lambda. \]
+	
+In R code:
+
+
+
+```{r,echo=FALSE, warning=FALSE}
+Z<-seq(-4,4,by=0.1)
+Pr_ireland_win<-0.1
+Pr_win<-c(dnorm(Z))
+Cum_Pr_win<-c(pnorm(Z))
+
+df <- data.frame(Z,Pr_win,Cum_Pr_win)
+binomial.p_dist<-ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(width = 0.1)+xlab("Z-score")+ylab("Pr of Z ")+ggtitle("Gaussian (Normal) \n Distribution")+
+theme(text = element_text(size=8))#+scale_x_discrete(breaks=0:10)
+
+binomial.cum_p_dist<-ggplot(df, aes(x=Z,y=Cum_Pr_win)) + geom_line(width = 0.1)+ylab("Pr(<= Z)")+xlab("Z -score")+ggtitle("Cummulative Gaussian \n Distribution")+
+theme(text = element_text(size=8))
+
+ggarrange( binomial.p_dist,binomial.cum_p_dist, ncol = 2, nrow = 1)
+#ggsave("Normal.png",dpi=300, width = 4, height = 2)
+```
+
+
+## Confidence Intervals
+
+
+```{r,echo=FALSE}
+
+ggplot(df, aes(x=Z,y=Pr_win)) + geom_line(size=1)+ylab("Pr(Z)")+xlab("Z-score")+
+                                ggtitle("Confidence Intervals")+
+                                theme(text = element_text(size=8))+
+                                geom_vline(xintercept = 1.96, linetype="dotted",color = "darkgray", size=0.5)+
+                                geom_vline(xintercept = -1.96, linetype="dotted",color = "darkgray", size=0.5)+
+                                geom_vline(xintercept = 2.58, linetype="dashed", color = "black", size=0.5)+
+                                geom_vline(xintercept = -2.58, linetype="dashed",color = "black", size=0.5)+
+                                geom_segment(aes(x = -1.96, y = 0.42, xend = 1.96, yend = 0.42),linetype="dotted",color="darkgray")+
+                                geom_segment(aes(x = -2.58, y = 0.5, xend = 2.58, yend = 0.5),linetype="dashed")+
+                                geom_text(aes(x=0, label="95% Confidence Interval",y=0.46),vjust=1,size=2,color="darkgray")+
+                                geom_text(aes(x=0, label="99% Confidence Interval",y=0.54),vjust=1,size=2)
+
+
+#ggsave("CI_Normal.png",dpi=300, width = 4, height = 2)
+```
