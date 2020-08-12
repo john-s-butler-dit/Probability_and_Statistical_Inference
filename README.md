@@ -39,9 +39,19 @@ Gareth, J, et al. - An introduction to statistical learning. Vol. 112. New York:
 
 Garland, P.  - Intoductory Statistics with R, Springer 2008
 
+James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to statistical learning (Vol. 112, p. 18). New York: springer. book website
+
+
 ### Popular Science: (author, title, publisher, date)
 Fry, H. - Hello World: How to be Human in the Age of the Machine, Doubleday, 2018
 
 Rosling, H, Rosling, O, Rosling Ronnlund, - Factfulness: Ten Reasons We're Wrong About The World - And Why Things Are Better Than You Think, Sceptre, 2019
 
 Silver, N, - The Signal and the Noise: The Art and Science of Prediction, Penguin, 2013
+
+### Podcasts: (name, website)
+Deep Mind: Podcast, https://deepmind.com/blog/article/welcome-to-the-deepmind-podcast 
+
+Freakonomics Podcast, http://freakonomics.com/ 
+
+More or Less: Behind the Stats https://www.bbc.co.uk/programmes/p02nrss1/episodes/downloads 
