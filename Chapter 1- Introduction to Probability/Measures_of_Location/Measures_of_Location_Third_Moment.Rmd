@@ -2,8 +2,8 @@
 title: 'Measures of Location: Third Moment'
 author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -38,66 +38,94 @@ $$ sk_1=\frac{\bar{x}-Mode(x)}{\sigma}.$$
 ### Definition 2:
 Pearson's Coefficient of Skewness number 2 uses the median to calculate skewness, given by the formula is:
 $$ sk_2=3\frac{\bar{x}-Median(x)}{\sigma}$$,
-where $\bar{x}$ is the average of the elements, $\sigma$ is the standard deviation, $Mode(x)$ is the mode of the elements and $Median(x)$ is the median of the elements.
+where $\bar{x}$ is the average of the elements, $\sigma$ is the standard #deviation, $Mode(x)$ is the mode of the elements and $Median(x)$ is the median of the elements.
 
 # Interpretation of Skewness
 How to interpret Skewness:
 
 * A skewness near means the distribution is symmetric.
 
-* A Negative skewness  means the distribution is right skewed
+* A Negative skewness means the distribution is right skewed
 
-* A Positive skewness  means the distribution is left skewed
+* A Positive skewness means the distribution is left skewed
 
-# Symmetric Example
+# Symmetric Example (Age at a Good Concert)
 
-The figure below shows a symmetric histogram of 2000 concert attendees ages observations at a concert:
+The figure below shows a symmetric histogram of 2000 concert attendees ages observations at a "good" concert:
+
+
 ```{r,warning=FALSE,echo=FALSE}
 Age<-rnorm(2000,23,2)
 sk_title = paste0("Symmetric Distribution Sk_1 = ",round((mean(Age)-median(Age))/sd(Age), digits = 3))
-#png("Third_Moment_sym.png")
+#png("Third_Moment_sym.png", width = 1600, height = 800, units = "px", pointsize = 20)
 
-hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),main=sk_title) # Histogram of the 7 numbers
+hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),main=sk_title,breaks=100) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=median(Age),col="green",lwd=3)# line indicating the mean
 legend("topright",c("mean","median"),lwd=c(3,3),lty=c(1,1),col=c("blue","green"))
 #dev.off()
 ```
+
 The age distribution is equally distributed around the mean, hence the skewness is more or less 0.
 
-# Positive Skewness Example
+# Positive Skewness Example (Age at a Bieber Concert)
 
-The figure below shows a positive skewness histogram of 2000 attendees age observations at a concert:
+The figure below shows a positive skewness histogram of 2000 attendees age observations at a Justin Bieber concert:
+
 ```{r,warning=FALSE,echo=FALSE}
-Age<-rchisq(2000,2)+15
+Age<-rchisq(2000,7)+15
 sk_title = paste0("Postive Skewed Distribution Sk_1 = ", round((mean(Age)-median(Age))/sd(Age), digits = 3))
-#png("Third_Moment_pos.png")
-hist(Age,col="lightblue",xlab="Age (years)",main=sk_title) # Histogram of the 7 numbers
+#png("Third_Moment_pos.png", width = 1600, height = 800, units = "px", pointsize = 20)
+hist(Age,col="lightblue",xlab="Age (years)",main=sk_title,breaks=100) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=median(Age),col="green",lwd=3)# line indicating the mean
 legend("topright",c("mean","median"),lwd=c(3,3),lty=c(1,1),col=c("blue","green"))
 #dev.off()
 ```
+
 The age distribution shows that the concert attendees are mostly young, hence the skewness is positive.
 
 
 
-## Negative Skewed Example
+## Negative Skewed Example (Age at an Andre Rieu Concert)
 
 The figure below shows a negative skewness histogram of 2000 attendees age observations at a Andre Rieu concert:
 
+
 ```{r,warning=FALSE,echo=FALSE}
-Age<-rbeta(2000,1,0.1)*20+50
+Age<-rbeta(2000,10,3)*20+70
+#png("Third_Moment_neg.png", width = 1600, height = 800, units = "px", pointsize = 20)
+
 sk_title = paste0("Negative Skewed Distribution Sk_1 = ", round((mean(Age)-median(Age))/sd(Age), digits = 3))
-hist(Age,col="lightblue",xlab="Age (years)",main=sk_title) # Histogram of the 7 numbers
+hist(Age,col="lightblue",xlab="Age (years)",main=sk_title,breaks=100) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=median(Age),col="green",lwd=3)# line indicating the mean
 legend("topleft",c("mean","median"),lwd=c(3,3),lty=c(1,1),col=c("blue","green"))
+#dev.off()
 ```
 The age distribution is skewed to the right side as the concert has mostly older adults, hence the skewness is negative.
 
-## Bi-modal distribution
+### All in one plot
 
+```{r,echo=FALSE,warning=FALSE}
+library(ggplot2)
+library(ggpubr)
+Sym<-rnorm(2000,23,2)
+Neg<-rbeta(2000,10,3)*20+70
+Pos<-rchisq(2000,7)+15
+df <- data.frame(Neg,Sym,Pos)
+p.neg<-ggplot(df, aes(x=Neg)) +  geom_histogram(color="black", fill="white")+ggtitle("Negative ")+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))
+p.sym<-ggplot(df, aes(x=Sym)) +  geom_histogram(color="black", fill="white")+ggtitle("Symmetric")+xlab("Age (yrs)")+ylab(NULL)
+p.pos<-ggplot(df, aes(x=Pos)) +  geom_histogram(color="black", fill="white")+ggtitle("Positive")+xlab("Age (yrs)")+ylab(NULL)
+ggarrange( p.pos,p.sym,  p.neg, ncol = 3, nrow = 1)
+ggsave("skew.png",dpi=300, width = 8, height = 6)
+
+
+```
+
+
+
+## Bi-modal distribution
 The figure below shows a histogram of 3000 attendees age observations at a Wiggles concert:
 ```{r,warning=FALSE,echo=FALSE}
 Age<-c(rnorm(2000,10,1.5),rnorm(1000,40,6))
@@ -108,22 +136,8 @@ abline(v=median(Age),col="green",lwd=3)# line indicating the mean
 legend("topleft",c("mean","median"),lwd=c(3,3),lty=c(1,1),col=c("blue","green"))
 
 ```
+
 The distribution is bimodal as there are 2000 excited children with 1000 parents wear earplugs, the skewness is positive but this is misleading.
 
-### All in one plot
-
-```{r}
-library(ggplot2)
-library(ggpubr)
-Sym<-rnorm(2000,23,2)
-Neg<-rbeta(2000,1,0.1)*20+50
-Pos<-rchisq(2000,2)+15
-df <- data.frame(Neg,Sym,Pos)
-p.neg<-ggplot(df, aes(x=Neg)) +  geom_histogram(color="black", fill="white")+ggtitle("Negative ")+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))
-p.sym<-ggplot(df, aes(x=Sym)) +  geom_histogram(color="black", fill="white")+ggtitle("Symmetric")+xlab("Age (yrs)")+ylab(NULL)
-p.pos<-ggplot(df, aes(x=Pos)) +  geom_histogram(color="black", fill="white")+ggtitle("Positive")+xlab("Age (yrs)")+ylab(NULL)
-ggarrange( p.pos,p.sym,  p.neg, ncol = 3, nrow = 1)
-ggsave("skew.png",dpi=300, width = 4, height = 2.5)
 
 
-```

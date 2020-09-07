@@ -6,8 +6,9 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE, echo = FALSE, cache = FALSE}
+ knitr::opts_chunk$set(dev = c('pdf', 'png'), fig.align = 'center', fig.height = 5, fig.width = 8.5, pdf.options(encoding = "ISOLatin9.enc"))
+#knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Introduction
@@ -89,13 +90,13 @@ Cons of the mean;
 The figure below shows the histogram from 2000 Age observations at a concert:
 ```{r,warning=FALSE, echo=FALSE}
 Age<-rnorm(2000,23,2)
-# png("Second_Moment.png", width = 6, height = 4, units = 'in', res = 300)
+#png("VarStd.png", width = 6, height = 4, units = 'in', res = 300)
  
-hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylab=NULL,main=NULL,ylim=c(0,500)) # Histogram of the 7 numbers
+hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylab=NULL,main=NULL,ylim=c(0,700)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=c(mean(Age)-var(Age),mean(Age)+var(Age)), col=c("red", "red"), lty=c(2,2), lwd=c(3, 3))# Variance
 abline(v=c(mean(Age)-sd(Age),mean(Age)+sd(Age)), col=c("blue", "blue"), lty=c(2,2), lwd=c(3, 3))# Standard Deviation
-legend("topleft",c("mean","variance","standard deviation"),lwd=c(3,3,3),lty=c(1,2,2),col=c("blue","red","blue"))
+legend("top",c("mean","variance","standard deviation"),lwd=c(3,3,3),lty=c(1,2,2),col=c("blue","red","blue"))
 #dev.off()
 
 ```
@@ -128,10 +129,12 @@ range(Age)
 ```
 ### Graphical representation of the range:
 ```{r,warning=FALSE, echo=FALSE}
+#png(filename = "Range.png")
 hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylim=c(0,700)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=range(Age), col=c("green", "green"), lty=c(2,2), lwd=c(3, 3))
 legend(15,700,c("mean","range"),lwd=c(3,3),lty=c(1,2),col=c("blue","green"))
+#dev.off()
 ```
 
 ## Interquartile Range
@@ -139,11 +142,12 @@ The interquartile range brackets 50% of the observations.
 
 ```{r,warning=FALSE, echo=FALSE}
 Age<-rnorm(2000,23,2)
+#png(filename = "InterQuart.png")
 hist(Age,col="lightblue",xlab="Age (years)",xlim=c(15,30),ylim=c(0,700)) # Histogram of the 7 numbers
 abline(v=mean(Age),col="blue",lwd=3)# line indicating the mean
 abline(v=c(quantile(Age, 1/4) , quantile(Age, 3/4)), col=c("green", "green"), lty=c(3,3), lwd=c(3, 3))
 legend(15,700,c("mean","Interquatile range"),lwd=c(3,3),lty=c(1,3),col=c("blue","green"))
-
+#dev.off()
 
 ```
 
@@ -188,11 +192,15 @@ library(ggplot2)
 Age<-c(rnorm(2000,10,1.5))
 
 df <- data.frame(Age)
-ggplot(df, aes(x=Age)) +  geom_histogram(color="black", fill="white",binwidth = 1)+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=mean(Age)-sd(Age),col="blue",size=1,labels="mean",linetype="dotted")+
-geom_vline(xintercept=mean(Age)+sd(Age),col="blue",size=1,linetype="dotted")+
-  geom_text(aes(x=mean(Age), label="standard deviation", y=600), colour="blue",  text=element_text(size=11))
+ggplot(df, aes(x=Age)) +  geom_histogram(color="black", fill="white",binwidth = 1)+xlab("Age (yrs)")+ylab(NULL)+ theme(plot.title = element_text(hjust=1.0))+geom_vline(xintercept=mean(Age)-sd(Age),col="purple",size=1,labels="mean",linetype="dotted")+
+geom_vline(xintercept=mean(Age)+sd(Age),col="purple",size=1,linetype="dotted")+
+  geom_text(aes(x=mean(Age), label="standard deviation", y=600), colour="purple",  text=element_text(size=11))+
+geom_vline(xintercept=mean(Age),col="blue",size=1,linetype="dashed")+
+  geom_text(aes(x=mean(Age), label="mean", y=500), colour="blue",  text=element_text(size=11))+
+geom_vline(xintercept=median(Age),col="green",size=1,linetype="dotted")+
+  geom_text(aes(x=median(Age), label="median", y=400), colour="green",  text=element_text(size=11))
 
-ggsave("range.png",dpi=300, width = 4, height = 2.5)
+ggsave("SecondMoment.png",dpi=300, width = 4, height = 2.5)
 
 
 ```
