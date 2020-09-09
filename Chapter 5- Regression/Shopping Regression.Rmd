@@ -30,7 +30,9 @@ summary(SpendAge)
 plot(Spend ~ Age,  data = Data) 
 abline(lm(Spend~Age,  data = Data))
 ```
+
 ### Spend as a function of Height
+
 ```{r}
 SpendHeight = lm(Spend ~ Height,  data = Data) 
 

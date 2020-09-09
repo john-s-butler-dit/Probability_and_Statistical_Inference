@@ -67,7 +67,7 @@ binomial.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+
             colour="blue",  text=element_text(size=18))
 
  binomial.p_dist
-
+ggsave("Binomial_Ireland.png",dpi=300, width = 4, height = 2)
 ```
 
 # Geometric Distribution
@@ -115,6 +115,7 @@ Geometric.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) + geom_col(width = 0.1)+
             colour="blue", text=element_text(size=18))
 
 Geometric.p_dist
+ggsave("Geometric_Ireland.png",dpi=300, width = 4, height = 2)
 
 ```
 
@@ -155,4 +156,6 @@ Poisson.p_dist<-ggplot(df, aes(x=Games,y=Pr_win)) +
             colour="blue",text=element_text(size=18))
 
 Poisson.p_dist
+ggsave("Poisson_Ireland.png",dpi=300, width = 4, height = 2)
+
 ```

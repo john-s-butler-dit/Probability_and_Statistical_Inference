@@ -1,7 +1,7 @@
 ---
 title: "Continuous Probability Distributions"
 author: "John S Butler"
-date: "4 November 2015"
+#date: "4 November 2015"
 output: word_document
 ---
 ## HIST AND GAUSSIAN FUNCTION
