@@ -2,7 +2,7 @@
 ## [Course Website](https://sites.google.com/dit.ie/math4001/home)
 ### [John S Butler](https://johnsbutler.netlify.com/)
 
-This course is an introduction to Probability and Statistical inference with R. Rstudio is an interface for R, to download go to the (Rstudio website)[https://www.rstudio.com].
+This course is an introduction to Probability and Statistical inference with R. Rstudio is an interface for R, to download go to the [Rstudio website](https://www.rstudio.com).
 
 
 Course Content:
