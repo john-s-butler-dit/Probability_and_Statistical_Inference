@@ -25,7 +25,7 @@ Course Content:
 5. Regression:
    - Simple linear regression;
    - Categorical regression;
-   - Logisitic regression.
+   - Logistic regression.
 
 ## References
 ### Essential Reading: (author, title, publisher)
