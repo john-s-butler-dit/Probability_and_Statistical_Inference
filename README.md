@@ -37,7 +37,7 @@ Devore & Peck  - Statistics: The exploration and analysis of data, 2011.
 
 Gareth, J, et al. - An introduction to statistical learning. Vol. 112. New York: springer, 2013.
 
-Garland, P.  - Intoductory Statistics with R, Springer 2008
+Dalgaard, P.  - Intoductory Statistics with R, Springer 2008
 
 James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to statistical learning (Vol. 112, p. 18). New York: springer. book website: https://www.statlearning.com
 
