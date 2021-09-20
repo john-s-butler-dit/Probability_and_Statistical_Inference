@@ -43,6 +43,8 @@ James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to s
 
 Poldrack R. (2020) Statistical Thinking in the 21st Century https://statsthinking21.github.io/statsthinking21-core-site/index.html
 
+Wickham, H., & Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data. " O'Reilly Media, Inc.". https://r4ds.had.co.nz
+
 ### Popular Science: (author, title, publisher, date)
 Fry, H. - Hello World: How to be Human in the Age of the Machine, Doubleday, 2018
 
