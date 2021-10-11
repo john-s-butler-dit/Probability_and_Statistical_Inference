@@ -1,0 +1,258 @@
+---
+title: "Problem Sheet 1"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.  Describe each of the following measures of location including their the pros and cons
+
+i Mean
+
+The mean is the point at which the sum of the deviations is 0:
+
+Pros:
+
+
+* Easy to calculate;
+
+* Uses all the data.
+
+Con:
+
+* Sensitive to extreme values.
+ 
+
+
+ii Median
+
+The median is the middle value of the ordered set of values:
+
+Pros:
+
+* Median gives the center of the data;
+
+* Not sensitive to extreme values.
+
+Con:
+
+* Does not use all the data.
+	 
+
+
+iii) Variance
+
+The variance is the spread around the mean:
+
+Pro:
+
+* Takes all data into account.
+
+Cons:
+
+
+* Hard to interpret;
+
+* Can be influenced by extreme values.
+	
+
+
+iv Skewness
+
+
+Skewness is a measure of symmetry of a distribution:
+Pro
+
+* Takes all data into account;
+
+Con
+
+* Not intuitive.
+
+
+## Counting
+
+2. How many different combinations of 4 cards can be made for a 52 card deck.
+
+__ANSWER:__
+
+Order __does not__ matter
+$$C_4^{52}=\big(\begin{array}{c} 52\\ 4 \end{array} \big)=\frac{52!}{(52-4)!4!}=\frac{(52\times51\times50\times49)}{(4\times3\times2\times1)}=270,725 $$
+
+
+```{r Q2}
+52*51*50*49/(4*3*2*1)
+
+# OR
+choose(52,4)
+
+```
+Order __does__ matter
+
+
+__ANSWER:__
+
+
+$$P_4^{52}=\frac{52!}{(52-4)!}=(52\times51\times50\times49)=6,497,400 $$
+
+```{r Q2ii}
+52*51*50*49
+
+# OR
+factorial(52)/factorial(48)
+
+```
+3. A bank issues bank cards with PINs consisting of 4 digits, each one {0,1,2,…,9}. How many unique PINs are there if
+i. Any 4-digit code can be used.
+
+__ANSWER:__
+
+
+$$10^4=10\times 10 \times 10\times 10\times 10=10,000$$
+```{r Q3i}
+10*10*10*10
+```
+
+ii. The digits must be different.
+
+__ANSWER:__
+
+
+Order __does__ matter
+$$P_4^{10}=\frac{10!}{(10-4)!}=(10\times9\times8\times7)=5,040 $$
+```{r Q3ii}
+10*9*8*7
+```
+4.  In a lottery, each ticket has 5 one-digit numbers 0-9 which is not repeated on it.
+i You win if your ticket has the digits in any order. What are the total number of possible combinations?
+
+__ANSWER:__
+
+
+Order __does not__ matter
+$$C_5^{10}=\big(\begin{array}{c} 10\\ 5 \end{array} \big)=\frac{10!}{(10-5)!5!}=\frac{(10\times9\times8\times7\times6)}{(5\times4\times3\times2\times1)}=252 $$
+```{r Q4i}
+choose(10,5)
+10*9*8*7*6/(5*4*3*2*1)
+
+```
+ii You would win only if your ticket has the digits in the required order. What are the total number of combinations?
+
+__ANSWER:__
+
+
+Order __does__ matter
+$$P_5^{10}=\frac{10!}{5!}=10\times9\times8\times7\times6=30240 $$
+```{r Q4ii}
+10*9*8*7*6
+
+```
+5.  How many different combinations of 6 cards can be made for a 52 card deck if
+i) order matters.
+
+
+__ANSWER:__
+
+
+Order __does__ matter
+$$P_6^{52}=\frac{52!}{(52-6)!}=52\times51\times50\times49\times48\times47=14,658,134,400 $$
+```{r Q5i}
+52*51*50*49*48*47
+factorial(52)/factorial(46)
+```
+ii) order does not matter
+
+__ANSWER:__
+
+
+Order __does not__ matter
+$$C_6^{52}=\big(\begin{array}{c} 52\\ 6 \end{array} \big)=\frac{52!}{(52-6)!6!}=\frac{(52\times51\times50\times49\times48\times47)}{(6\times5\times4\times3\times2\times1)}=20,358,520 $$
+```{r Q5ii}
+choose(52,6)
+52*51*50*49*48*47/(6*5*4*3*2*1)
+
+```
+
+6. A poker hand consists of 7 cards: 
+i)    How many different hands are possible, if order does not matter,
+
+__ANSWER:__
+
+
+Order __does not__ matter
+$$C_7^{52}=\big(\begin{array}{c} 52\\ 7 \end{array} \big)=\frac{52!}{(52-7)!7!}=\frac{(52\times51\times50\times49\times48\times47\times46)}{(7\times6\times5\times4\times3\times2\times1)}=133,784,560 $$
+```{r Q6i}
+choose(52,7)
+52*51*50*49*48*47*46/(7*6*5*4*3*2*1)
+
+```
+
+ii)    How many hands can be made with at least one king and one queen.
+
+__ANSWER:__
+
+
+$$\frac{4\times4\times(50\times49\times48\times47\times46)}{(5\times4\times3\times2\times1)}=33,900,160 $$
+```{r Q6ii}
+4*4*50*49*48*47*46/(5*4*3*2*1)
+
+```
+
+7. In a game of 5 card poker what are the number of different possible hands are there?
+i) A hand with a pair
+
+__ANSWER:__
+
+
+$$\frac{52\times3}{2\times1}\times\frac{(48\times47\times46)}{(3\times2\times1)}=1,349,088$$
+```{r Q7i}
+(52*3)/(2*1)*48*47*46/(3*2*1)
+
+```
+
+aa)A hand with a only pair
+
+__ANSWER:__
+
+
+$$\frac{52\times3}{2\times1}\times\frac{(48\times44\times40)}{(3\times2\times1)}=1,098,240$$
+```{r Q7a}
+(52*3)/(2*1)*48*44*40/(3*2*1)
+
+```
+
+ b)A hand with two pair
+ 
+
+__ANSWER:__
+
+
+$$\frac{\frac{52\times3}{2\times1}\times\frac{48\times3}{2\times1}}{2\times1}\times\frac{44}{1}=123,552$$
+```{r Q7b}
+((52*3)/(2*1)*48*3/(2*1))/2*44/1
+```
+c)A hand with Three of a kind
+
+__ANSWER:__
+
+
+$$\frac{52\times3\times2}{3\times2\times1}\times\frac{48\times3}{2\times1}=3,744$$
+```{r Q7c}
+((52*3*2)/(3*2*1)*48*3/(2*1))
+```
+
+d)A hand with a Flush (all the same suit)
+
+
+__ANSWER:__
+
+
+$$\frac{52\times12\times11\times10\times9}{5\times4\times3\times2\times1}=5,148$$
+```{r Q7d}
+((52*12*11*10*9)/(5*4*3*2*1))
+```
+

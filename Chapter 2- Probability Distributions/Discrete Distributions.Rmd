@@ -1,7 +1,8 @@
 ---
-title: 'Discrete Distributions'
+title: "Discrete Distributions"
 author: '[John S Butler (TU Dublin)](https://johnsbutler.netlify.com)'
 output:
+  word_document: default
   pdf_document: default
 ---
 
@@ -18,7 +19,7 @@ library(ggpubr)
 # Binomial Distribution
 A Binomial Distribution is used to describe the probability distribution of $n$ experiments that have two possible outcomes "success" or "failure".
 The probability of "success" is $p$, the probability of "failure" is $q=1-p$.
-This gives the general defintion of the distribution as:
+This gives the general definition of the distribution as:
 \[\Pr(k)= \left( \begin{array}{c}
 	n  \\
 	k  \\
@@ -74,16 +75,16 @@ ggsave("Binomial_Ireland.png",dpi=300, width = 4, height = 2)
 
 A Geometric distribution is used to describe the probability distribution if you do an experiment until you succeed, the experiment has two possible outcomes "success" or "failure".
 The probability of "success" is $p$, the probability of "failure" is $q=1-p$.
-This gives the general defintion of the distribution as:
+This gives the general definition of the distribution as:
 \[\Pr(k)=q^{(k-1)}p, \ \ k=1,2,... \]
 with the expected outcome of,
 \[E[k]=\frac{1}{p},\] 
-and variacne of 
+and variance of 
 \[Var[k]=\frac{q}{p^2}.\]
 	
 ### Example
 
-The example we shall use to illustrate the Geometric distibution is the New Zealand vs Ireland World Cup Rugby Quarter Final.
+The example we shall use to illustrate the Geometric distribution is the New Zealand vs Ireland World Cup Rugby Quarter Final.
 Let's assume the probability of "success", Ireland beating New Zealand is 
 \[p=0.15,\]
 the probability of failure is 

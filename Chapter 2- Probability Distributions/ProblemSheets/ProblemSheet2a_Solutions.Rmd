@@ -1,0 +1,202 @@
+---
+title: "Problem Sheet 2a - Probability Mass Distributions"
+output:
+#  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(knitr)
+```
+
+## Question 1
+1.	The probability mass function of a discrete random variable X is given in the follow- ing table:
+
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+x<- 0:4
+Pr<-c(0.1,0.2,0.4,0.2,0.1)
+
+df <- data.frame(x,Pr)
+kable(df,caption = "Q1: Probability Mass Function.")
+
+
+Q1.p_dist<-ggplot(df, aes(x=x,y=Pr)) + geom_col(width = 0.1)+xlab("x")+ylab("Pr(x)")+ylim(0,1)
+
+```
+
+Find the E[X] and Var [X].
+
+### __ANSWER__
+
+$$ E[X]=x_0p_0+x_1p_1+x_2p_2+x_3p_3+x_4p_4=\sum_{i=0}^4x_ip_i $$
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+i=0:4
+xPr<-x*Pr
+df <- data.frame(i,x,Pr,xPr)
+Expected<-sum(df$xPr)
+kable(df,caption = 'Q1: Expected Value Calculation')
+```
+
+$$ E[X]=0 (0.1)+1(0.2)+2(0.4)+3 (0.2)+4(0.1)= `r  Expected` $$
+The expected value E[X] is `r Expected`.
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+var_x<-(x-Expected)^2*Pr
+df <- data.frame(i,x,Pr,xPr,var_x)
+VAR<-sum(df$var_x)
+kable(df,caption = 'Q1: Variance Calculation')
+```
+
+$$ VAR[X]=(x_0-E[X])^2p_0+(x_1-E[X])^2p_1+$$
+$$(x_2-E[X])^2p_2+(x_3-E[X])^2p_3+(x_4-E[X])^2p_4=\sum_{i=0}^4(x_i-E[X])^2p_i $$
+
+
+$$ VAR[X]=(0-`r Expected`)^2 0.1+(1-`r Expected`)^2 0.2+$$
+$$(2-`r Expected`)^2 0.4+(3-`r Expected`)^2 0.2+(4-`r Expected`)^2 0.1=`r VAR`. $$
+
+The Variance value VAR[X] is `r VAR`.
+
+
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+
+Q1.p_dist+geom_vline(xintercept = Expected, color = "blue", size=1)+geom_text(aes(x=Expected, label="E[k]", y=max(1)),vjust=2,     colour="blue",  text=element_text(size=18))+geom_vline(xintercept = Expected-VAR, color = "red", size=1)+geom_vline(xintercept = Expected+VAR, color = "red", size=1)+
+  ggtitle("Q1 Probability Mass  Distribution")
+
+```
+\newpage 
+
+## Question 2
+The probability mass function of a discrete random variable X is given in the following table:
+
+
+Show that p3 = 0.2 
+
+
+### __ANSWER__
+
+
+$$ 0.1+0.3+0.3+p_3+0.1=1$$
+re-arranging
+$$ p_3=1-0.1+0.3+0.3+0.1$$
+$$ p_3=1-0.8=0.2$$
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+x<- c(-2,	-1,	0,	1,	2)
+Pr<-c(0.1,0.3,0.3,0.2,0.1)
+
+df <- data.frame(x,Pr)
+kable(df,caption = "Q2: Probability Mass Function.")
+
+
+Q2.p_dist<-ggplot(df, aes(x=x,y=Pr)) + geom_col(width = 0.1)+xlab("x")+ylab("Pr(x)")+ylim(0,1)
+
+```
+
+
+and calculate the E [X ].
+
+### __ANSWER__
+
+$$ E[X]=x_0p_0+x_1p_1+x_2p_2+x_3p_3+x_4p_4=\sum_{i=0}^4x_ip_i $$
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+i=0:4
+xPr<-x*Pr
+df <- data.frame(i,x,Pr,xPr)
+Expected<-sum(df$xPr)
+kable(df,caption = 'Q2: Expected Value Calculation')
+```
+
+$$ E[X]=-2 (0.1)+-1(0.3)+0(0.3)+1 (0.2)+2(0.1)= `r  Expected` $$
+The expected value E[X] is `r Expected`.
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+Q2.p_dist+geom_vline(xintercept = Expected, color = "blue", size=1)+geom_text(aes(x=Expected, label="E[k]", y=max(1)),vjust=2,     colour="blue",  text=element_text(size=18))+
+  ggtitle("Q2 Probability Mass  Distribution")
+```
+
+\newpage 
+
+# Geometric Distribution
+
+A Geometric distribution is used to describe the probability distribution if you do an experiment until you succeed, the experiment has two possible outcomes "success" or "failure".
+The probability of "success" is $p$, the probability of "failure" is $q=1-p$.
+This gives the general definition of the distribution as:
+\[\Pr(k)=q^{(k-1)}p, \ \ k=1,2,... \]
+with the expected outcome of,
+\[E[k]=\frac{1}{p},\] 
+and variance of 
+\[Var[k]=\frac{q}{p^2}.\]
+
+## Question 3
+
+3.	20% of the Irish population watched Ireland beat France in the Rugby World Cup. A representative from TV3 marketing was sent to Grafton Street to ask passerbys their opinion of the match coverage. Let X denote the number of people need to be asked til the marketer successfully finds some who watched the game.
+
+
+i	Give the Geometric probability mass function for X.
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+p<-0.2
+q<-1-p
+
+```
+
+
+### __ANSWER__
+
+
+The probability of "success" is $$p=`r p`,$$ the probability of "failure" is $$q=1-p=`r q`.$$
+This gives the general definition of the distribution as:
+\[\Pr(k)=`r q`^{(k-1)}`r p`, \ \ k=1,2,... \]
+where k is the number of people asked by the marketer.
+
+
+
+
+
+ii	Find the probability that the marketer had to ask exactly 2 people. 
+
+### __ANSWER__
+
+\[\Pr(k)=`r q`^{(2-1)}`r p`= `r q`(`r p`)=`r q*p`\]
+
+
+iii What is the E [X ] and V ar [X ] of the distribution.
+
+__ANSWER__
+
+The expected outcome of,
+\[E[k]=\frac{1}{p}=\frac{1}{`r p`}=`r 1/p`,\] 
+and variance of 
+\[Var[k]=\frac{q}{p^2}=\frac{`r q`}{`r p`^2}=`r q/(p*p)`.\]
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+People<-0:20 # Number of Games
+E_X<-1/p # Expected Value
+Var_X<-(q)/(p*p) # Variance
+Pr_win<-c(dgeom(People,p))
+
+df <- data.frame(People,Pr_win)
+kable(df,caption="Q3")
+# Plot
+Geometric.p_dist<-ggplot(df, aes(x=People,y=Pr_win)) + geom_col(width = 0.1)+
+  xlab("Number of People asked until one watched Game")+ylab("Pr(People until one watched)")+
+  ggtitle("Q3 Geometric  Distribution")+
+  scale_x_continuous(breaks=People)+ 
+  geom_vline(xintercept = E_X,  color = "blue", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_win)),vjust=2, 
+            colour="blue", text=element_text(size=18))
+
+Geometric.p_dist
+
+```

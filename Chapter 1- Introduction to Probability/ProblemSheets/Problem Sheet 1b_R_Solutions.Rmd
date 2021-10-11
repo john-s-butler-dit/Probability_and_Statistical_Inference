@@ -1,0 +1,209 @@
+---
+title: "Problem Sheet 1b"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+1. The events A and B are defined on a sample space. The following probabilities are known: Pr(A)= 2/3; Pr(B)= 1/6 and $Pr(A \cap B)$= 1/6
+a) Are A and B mutually exclusive and independent?
+b) Find the following additional probabilities:
+i) Pr(notA)
+ii) $Pr(A \cup B)$
+iii) Pr(A|B)
+
+__ANSWER:__
+
+
+i) $$Pr(notA)=1-Pr(A)$$
+
+
+```{r Q1i}
+1-1/3
+```
+
+ii) $$Pr(A \cup B)=Pr(A)+Pr(B)-(Pr(A\cap B))$$
+
+
+```{r Q1ii}
+2/3+1/6-1/6
+```
+
+iii) $$Pr(A | B)=\frac{Pr(A \cap B)}{Pr(B)}$$
+
+
+```{r Q1iii}
+(1/6)/(1/6)
+```
+
+## Question 2
+
+2. The events A and B are defined on a sample space. The following probabilities are known: Pr(A)= 1/2 ; $Pr(B)= \frac{1}{2}$ and $Pr(A \cup B)= \frac{5}{6}$.
+Find the following additional probabilities:
+i  Pr(A)= Pr(notA)
+ii $Pr(A\cap B)$
+iii Pr(A|B)
+
+__ANSWER:__
+
+
+i) $$Pr(notA)=1-Pr(A)$$
+
+
+```{r Q2i}
+1-1/2
+```
+
+ii) $$Pr(A \cap B)=Pr(A)+Pr(B)-(Pr(A\cup B))$$
+
+
+```{r Q2ii}
+1/2+1/2-5/6
+```
+
+iii) $$Pr(A | B)=\frac{Pr(A \cap B)}{Pr(B)}$$
+
+
+```{r Q2iii}
+(1/6)/(5/6)
+```
+
+## Question 4 
+
+4. A standard green and a standard red die are thrown at the same time.
+i  Define the sample space for all the events.
+ii What is probability that the sum of the scores on the two dice is greater than 6.
+iii What is the probability that the green die is less than 5.
+iv That is the probability that the sum of the two die is greater than six given that the green die is less than 5.
+
+__ANSWER:__
+
+
+i) Define the sample space for all the events.
+
+
+
+```{r Q4i,echo=FALSE}
+
+Table<-matrix(c("1,1","2,1","3,1","4,1","5,1","6,1","1,2","2,2","3,2","4,2","5,2","6,2","1,3","2,3","3,3","4,3","5,3","6,3","1,4","2,4","3,4","4,4","5,4","6,4","1,5","2,5","3,5","4,5","5,5","6,5","1,6","2,6","3,6","4,6","5,6","6,6"),ncol =6,byrow=TRUE)
+Table
+```
+
+ii What is probability that the sum of the scores on the two dice is greater than 6.
+__ANSWERS:__
+$$Pr(Sum >6)=\frac{21}{36}$$
+
+iii What is the probability that the green die is less than 5.
+
+__ANSWERS:__
+
+$$ Pr(Green<5)=\frac{24}{36}$$
+iv What is the probability that the sum of the two die is greater than six given that the green die is less than 5.
+
+__ANSWERS:__
+
+$$Pr(Green<5 \cap Sum >6)=\frac{10}{36}$$
+$$Pr(Sum >6 | Green <5)=\frac{\frac{10}{36}}{\frac{24}{36}}=\frac{10}{24}$$
+
+
+# Conditional Probability
+## Question 5
+
+
+5. 20% of the population owns a smart-phone and a tablet, and 60% of the population own a smart-phone. What is the probability that a someone owns a tablet given that they own a smart-phone?
+
+__ANSWER:__
+
+ $$Pr(Tablet | Smart-Phone)=\frac{Pr(Smart-Phone \cap Tablet)}{Pr(Smart-Phone)}=\frac{0.2}{0.6}$$
+
+
+```{r Q5}
+(.2)/(.6)
+```
+
+6. The probability that it is Friday and that a student is absent is 0.03. Since there are 5 school days in a week, the probability that it is Friday is 0.2. What is the probability that a student is absent given that today is Friday?
+
+__ANSWER:__
+
+ $$Pr(Absent | Friday)=\frac{Pr(Absent \cap Friday)}{Pr(Friday)}=\frac{0.03}{0.2}$$
+
+
+```{r Q6}
+(.03)/(.2)
+```
+# Bayes Probability
+## Question 7
+
+7. In 2015, of the 200 million people registered to vote in America 4% say they will vote for Donald Trump. Of these voters 50% are climate change skeptics, while only 8.3% of the other voters are climate change skeptics.
+a) Find the probability that a voter selected is a climate change skeptic.
+
+__ANSWER:__
+
+ $$Pr(Skeptic)=Pr(Skeptic \cap Trump)Pr(Trump)+Pr(Skeptic \cap Not Trump)Pr(Not Trump)$$
+
+
+```{r Q7a}
+.04*0.5+0.96*0.083
+```
+b) If a voter is selected and they are a climate change skeptic, determine the probability that they will vote for Trump.
+
+__ANSWER:__
+
+ $$Pr(Trump|Skeptic)=\frac{Pr(Skeptic \cap Trump)Pr(Trump)}{Pr(Skeptic \cap Trump)Pr(Trump)+Pr(Skeptic \cap Not Trump)Pr(Not Trump)}$$
+
+
+```{r Q7b}
+.04*0.5/(.04*0.5+0.96*0.083)
+```
+
+8. In 2015, of the 200 million people registered to vote in America 38% say they will vote for Donald Trump. Of these voters 20% are birthers (people who questioned that President Obama was born in the US), while only 1% of the other voters are birthers.
+a) Find the probability that a voter selected is a birther.
+
+__ANSWER:__
+
+
+ $$Pr(birther)=Pr(birther \cap Trump)Pr(Trump)+Pr(birther \cap Not Trump)Pr(Not Trump)$$
+
+
+
+```{r Q8a}
+0.38*0.2+0.62*0.01
+```
+b) If a voter is selected and they are a birther, determine the probability that they will vote for Trump.
+
+__ANSWER:__
+
+ $$Pr(Trump | birther)=\frac{Pr(birther \cap Trump)Pr(Trump)}{Pr(birther \cap Trump)Pr(Trump)+Pr(birther \cap Not Trump)Pr(Not Trump)}$$
+
+
+```{r Q8b}
+(0.38*0.2)/(0.38*0.2+0.62*0.01)
+```
+
+9. In a school 30% of the students are male. Of these males 20% have long hair, while 90% of the female students have long hair. 
+i Find the probability that a student selected has long hair.
+
+__ANSWER:__
+
+  $$Pr(Long-Hair)=Pr(Long-Hair \cap Male)Pr(Male)+Pr(Long-Hair \cap Female)Pr(Female)$$
+
+```{r Q9i}
+.3*.2+.7*.9
+```
+
+ii If a student is selected and they have long hair, determine the probability that the student is male.
+
+__ANSWER:__
+
+  $$Pr(Male|Long-Hair)=\frac{Pr(Long-Hair \cap Male)Pr(Male)}{Pr(Long-Hair \cap Male)Pr(Male)+Pr(Long-Hair \cap Female)Pr(Female)}$$
+
+
+```{r Q9ii}
+(.3*.2)/(.3*.2+.7*.9)
+```
