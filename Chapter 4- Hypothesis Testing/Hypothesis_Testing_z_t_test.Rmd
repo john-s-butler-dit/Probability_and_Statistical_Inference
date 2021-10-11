@@ -4,6 +4,14 @@ output:
   pdf_document: default
   word_document: default
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(knitr)
+```
+
 # Z- test
 
 ## Example 1
@@ -14,31 +22,59 @@ Calculate the z-test to test is the observed data is different from the populati
 
 + i 10 men of height: 179, 188, 172, 185, 171, 199, 176, 188, 158, 200
 
-```{r}
+```{r,dpi=300,echo=FALSE, warning=FALSE}
 data<-c(179, 188, 172, 185, 171, 199, 176, 188, 158, 200)
 
 t.test(data,mu=170)
+
+df <- data.frame(data)
+
+ggboxplot(df,  y = "data",
+          add = "jitter")+geom_hline(yintercept = 170)
+
 ```
 
 + ii 12 women of height: 175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152
-```{r}
+```{r,dpi=300,echo=FALSE, warning=FALSE}
 data<-c(175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152)
 
 t.test(data,mu=170)
+
+df <- data.frame(data)
+
+ggboxplot(df,  y = "data",
+          add = "jitter")+geom_hline(yintercept = 170)
+
+
 ```
 + iii 7 women and 8 men of height: 166, 189, 180, 193, 148, 174, 161, 170, 172, 179, 158, 157, 176, 171, 174
-```{r}
+```{r,dpi=300,echo=FALSE, warning=FALSE}
 data<-c(166, 189, 180, 193, 148, 174, 161, 170, 172, 179, 158, 157, 176,171, 174)
 
 t.test(data,mu=170)
+
+df <- data.frame(data)
+
+ggboxplot(df,  y = "data",
+          add = "jitter")+geom_hline(yintercept = 170)
+
+
 ```
 
 + iv Compare the height of the 10 men and the 12 women
 
-```{r}
+```{r,dpi=300,echo=FALSE, warning=FALSE}
 men<-c(179, 188, 172, 185, 171, 199, 176, 188, 158, 200)
 women<-c(175, 158, 159, 167, 171, 151, 160, 167, 147, 172, 154, 152)
 t.test(men,women,paired=FALSE)
+
+Sex<-c(rep("M",length(men)),rep("W",length(women)))
+Height<-c(men,women)
+df <- data.frame(Sex,Height)
+
+ggboxplot(df, x = "Sex", y = "Height",
+          color = "Sex", palette = "jco",
+          add = "jitter")
 
 ```
 
@@ -48,7 +84,7 @@ A survey claims that 8 out of 10 doctors recommend aspirin for their patients wi
 
 Calculate the z-test to test is the observed data different from the population data.
 
-```{r}
+```{r,dpi=300,echo=FALSE, warning=FALSE}
 p0<-0.8
 
 q0<-1-p0
@@ -65,12 +101,16 @@ Read in the PearsonLeeSimple.csv data. Using an unpaired t-test compare:
 * the heights of children and parents,
 * within in the parents compared the Height of Mothers and Fathers.
 
-```{r}
-# JB_PEARSON<-read.csv("PearsonLeeSimple.csv")
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+JB_PEARSON<-read.csv("PearsonLeeSimple.csv")
 
-# t.test(JB_PEARSON$parent,JB_PEARSON$child,paired=FALSE)
-# t.test(JB_PEARSON$parent~JB_PEARSON$par,paired=FALSE)
+ t.test(JB_PEARSON$parent,JB_PEARSON$child,paired=FALSE)
+ t.test(JB_PEARSON$parent~JB_PEARSON$par,paired=FALSE)
 
+
+
+ggboxplot(JB_PEARSON, x="par", y = "parent",
+          add = "jitter",color="par")
 
 ```
 
