@@ -1,6 +1,8 @@
 ---
 title: "Hypothesis Testing Solutions"
-output: word_document
+output:
+  pdf_document: default
+  word_document: default
 ---
 # Z- test
 

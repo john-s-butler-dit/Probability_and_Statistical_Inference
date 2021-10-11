@@ -1,6 +1,8 @@
 ---
 title: "Chi-squared Hypothesis Testing"
-output: word_document
+output:
+  pdf_document: default
+  word_document: default
 ---
 # Chi-squared Tests
 ## Goodness of Fit
