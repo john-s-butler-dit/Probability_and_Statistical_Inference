@@ -1,0 +1,341 @@
+---
+title: "Problem Sheet 2b - Probability Mass Distributions"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(knitr)
+```
+
+## Question 1
+1. There are 30 candy covered chocolates in a bag M&M’s. There is a .1 probability that that the candy is red. If X is the number of red M&M’s in the bag.
+
+i Give the binomial probability mass function for X.
+
+__ANSWER:__
+
+\[\Pr(k)= \left( \begin{array}{c}
+	30  \\
+	k  \\
+	\end{array} \right)(0.1)^k(0.9)^{30-k}, \ \ k=0,1,2,...30, \]
+	where k is the number of red M & Ms.
+	
+
+ii Find the probability of less than 2 red M&Ms in the bag.
+ 
+__ANSWER:__
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+n<-30
+k<-1
+MandM<-0:n # Number of Games
+Pr_Red<-0.1 # Probability of Success
+Pr_Reds<-c(dbinom(0:n,n,Pr_Red)) # Binomial Probability 
+Q1ii<-c(dbinom(0:k,n,Pr_Red))
+E_X<- n*Pr_Red # Expected Value
+Var_X<-10*Pr_Red*(1-Pr_Red) # Variance
+
+```
+
+\[\Pr(0)= \left( \begin{array}{c}
+	30  \\
+0  \\
+	\end{array} \right)(0.1)^0(0.9)^{30-0}= `r Q1ii[1]`\]
+\[\Pr(1)= \left( \begin{array}{c}
+	30  \\
+1  \\
+	\end{array} \right)(0.1)^1(0.9)^{30-1}= `r Q1ii[2]`\]
+
+\[Pr(<2)=Pr(0)+Pr(1)=`r Q1ii[1]`+`r Q1ii[2]`=`r sum(Q1ii)`,  \]
+
+As it is a Binomial Distribution we can state that the expected number of Red is
+\[E[k]=`r n`\times `r Pr_Red` =`r E_X`,\]
+the variance of the distribution is 
+\[Var[k]=`r n`\times `r Pr_Red`\times(1-`r Pr_Red`) =`r Var_X`.\]
+
+The plot below shows the Binomial Distribution M & Ms:
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+df <- data.frame(MandM,Pr_Reds)
+## Plot
+binomial.p_dist<-ggplot(df, aes(x=MandM,y=Pr_Reds)) + geom_col(width = 0.1)+
+  xlab("Number of Red M and Ms  out of 30")+
+  ylab("Pr of Red")+ggtitle("Binomial Distribution")+
+  scale_x_continuous(breaks=0:n)+ 
+  geom_vline(xintercept = E_X, color = "Red", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_Reds)),vjust=2, 
+            colour="red",  text=element_text(size=18))
+
+ binomial.p_dist
+ggsave("Q1.png",dpi=300, width = 4, height = 2)
+```
+
+
+## Question 2
+
+2. A baby wakes on average 0.25 times every hour.
+ 
+i If X is the number of times a baby wakes in an hour, give the poisson probability mass function for X.
+__ANSWER:__
+
+The distribution is described by the average, $\lambda=0.25$,
+\[\Pr(k)=\frac{0.25^ke^{-0.25}}{k!}, \ \ k=0,1,2,... \]
+where $k$ is the number of times the baby wakes every hour.
+
+The expected value of the Poisson Distribution is
+\[E[k]=0.25, \]
+with the variance
+\[Var[k]=0.25. \]
+
+
+
+The plot below shows the Poisson Distribution for $\lambda=0.25$ average number of times a baby wakes in an hour:
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+Wake<-0:20 # Number of Games
+Baby_wakes<-0.25 # Lambda
+Pr_wakes<-c(dpois(Wake,Baby_wakes)) # Poisson Probabilities
+E_X<-Baby_wakes # Expected Outcome
+
+df <- data.frame(Wake,Pr_wakes)
+
+## Plot
+Poisson.p_dist<-ggplot(df, aes(x=Wake,y=Pr_wakes)) + 
+  geom_col(width = 0.1)+xlab("Number of Times a Baby wakes in an hour")+
+  ylab("Pr of baby Wakes")+ggtitle("Poisson Distribution")+ 
+  geom_vline(xintercept = E_X,  color = "blue", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_wakes)),vjust=2,
+            colour="blue",text=element_text(size=18))
+
+Poisson.p_dist
+ggsave("Q2i.png",dpi=300, width = 4, height = 2)
+
+```
+
+
+
+
+
+
+ii If X is the number of times a baby wakes in eight hour, give the poisson probability mass function for X.
+
+__ANSWER:__
+
+The distribution is described by the average, $\lambda=0.25\times 8 =2$,
+\[\Pr(k)=\frac{2^ke^{-2}}{k!}, \ \ k=0,1,2,... \]
+where $k$ is the number of times the baby wakes every 8 hours.
+
+The expected value of the Poisson Distribution is
+\[E[k]=2, \]
+with the variance
+\[Var[k]=2. \]
+
+
+The plot below shows the Poisson Distribution for $\lambda=2$ average number of times a baby wakes in eight hours:
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+
+Baby_wakes<-0.25*8 # Lambda
+Pr_wakes<-c(dpois(Wake,Baby_wakes)) # Poisson Probabilities
+E_X<-Baby_wakes # Expected Outcome
+
+df <- data.frame(Wake,Pr_wakes)
+
+## Plot
+Poisson.p_dist<-ggplot(df, aes(x=Wake,y=Pr_wakes)) + 
+  geom_col(width = 0.1)+xlab("Number of Times a Baby wakes in an hour")+
+  ylab("Pr of baby Wakes")+ggtitle("Poisson Distribution")+ 
+  geom_vline(xintercept = E_X,  color = "blue", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_wakes)),vjust=2,
+            colour="blue",text=element_text(size=18))
+
+Poisson.p_dist
+ggsave("Q2i.png",dpi=300, width = 4, height = 2)
+
+```
+
+
+
+
+
+
+iii What is the probability that the baby does not wake during the 8 hours.
+
+__ANSWER:__
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+
+Baby_wakes<-0.25*8 # Lambda
+Pr_wakes_zero<-dpois(0,Baby_wakes) #
+```
+
+\[\Pr(0)=\frac{0.25^0e^{-0.25}}{0!}=`r Pr_wakes_zero`.  \]
+
+## Question 3
+
+3. Give the features of a
+ 
+i Geometric Experiment. 
+
+__ANSWER:__
+
+• Bernoulli Trial
+• Goes until you "win"
+• E[X]=1/p, VAR[X]=q/p^2
+
+
+ii Binomial Experiment. 
+
+__ANSWER:__
+
+• Bernoulli Trial
+• Play a specific number of times
+• E[x]=np, VAR[X]=npq
+
+
+
+iii Poisson Experiment.
+
+__ANSWER:__
+
+• Well known mean
+• Number of "wins"
+• E[X]=lambda, VAR[X]=lambda
+
+
+## Question 4
+
+4. Every day a production line makes 100 computers of which 10% are defective. If X is the number of defective computers in a day.
+
+a) Give the binomial probability mass function for X.
+
+__ANSWER:__
+
+\[\Pr(k)= \left( \begin{array}{c}
+	100  \\
+	k  \\
+	\end{array} \right)(0.1)^k(0.9)^{30-k}, \ \ k=0,1,2,...100, \]
+	where k is the number of defective computers.
+	
+
+b) Find the probability that there is more than 2 computers defective in a day.
+
+
+__ANSWER:__
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+n<-100
+k<-2
+Computers<-0:n # Number of Games
+Pr_Def<-0.1 # Probability of Success
+Pr_Defs<-c(dbinom(0:n,n,Pr_Def)) # Binomial Probability 
+Q4ii<-c(dbinom(0:k,n,Pr_Def))
+E_X<- n*Pr_Def # Expected Value
+Var_X<-10*Pr_Def*(1-Pr_Def) # Variance
+
+```
+
+\[\Pr(0)= \left( \begin{array}{c}
+	100  \\
+0  \\
+	\end{array} \right)(0.1)^0(0.9)^{100-0}= `r Q4ii[1]`,\]
+\[\Pr(1)= \left( \begin{array}{c}
+	100  \\
+1  \\
+	\end{array} \right)(0.1)^1(0.9)^{100-1}= `r Q4ii[2]`,\]
+
+\[Pr(2)= \left( \begin{array}{c}
+	100  \\
+2  \\
+	\end{array} \right)(0.1)^2(0.9)^{100-2}= `r Q4ii[3]` .\]
+
+\[ Pr(>2)=1-Pr(\leq2)=1-(Pr(0)+Pr(1)+Pr(2))=1-`r Q4ii[1]`+`r Q4ii[2]`+`r Q4ii[3] ` = `r 1-sum(Q4ii)`  \]
+
+The plot below shows the Binomial Distribution for defective computers:
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+df <- data.frame(Computers,Pr_Defs)
+## Plot
+binomial.p_dist<-ggplot(df, aes(x=Computers,y=Pr_Defs)) + geom_col(width = 0.1)+
+  xlab("Number of Defective Computers")+
+  ylab("Pr of Defective")+ggtitle("Binomial Distribution")+
+  geom_vline(xintercept = E_X, color = "Red", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_Defs)),vjust=2, 
+            colour="red",  text=element_text(size=18))
+
+ binomial.p_dist
+ggsave("Q4.png",dpi=300, width = 4, height = 2)
+```
+
+## Question 5
+5. A phone center receives 15 calls every 30 minutes.
+ 
+a) If X is the number of phone calls in 30 minutes, give the Poisson probability mass function for X.
+
+__ANSWER:__
+
+The distribution is described by the average, $\lambda=15$,
+\[\Pr(k)=\frac{15^ke^{-15}}{k!}, \ \ k=0,1,2,... \]
+where $k$ is the number of phone calls per half hour.
+
+The expected value of the Poisson Distribution is
+\[E[k]=15, \]
+with the variance
+\[Var[k]=15. \]
+
+
+
+The plot below shows the Poisson Distribution for $\lambda=15$ average number of calls per half-hour:
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+Calls<-0:50 # Number of Games
+No_of_Calls<-15 # Lambda
+Pr_Calls<-c(dpois(Calls,No_of_Calls)) # Poisson Probabilities
+E_X<-No_of_Calls # Expected Outcome
+
+df <- data.frame(Calls,Pr_Calls)
+
+## Plot
+Poisson.p_dist<-ggplot(df, aes(x=Calls,y=Pr_Calls)) + 
+  geom_col(width = 0.1)+xlab("Number of Phone Calls in a half hour")+
+  ylab("Pr of Phone Calls")+ggtitle("Poisson Distribution")+ 
+  geom_vline(xintercept = E_X,  color = "blue", size=1)+
+  geom_text(aes(x=E_X, label="E[k]", y=max(Pr_Calls)),vjust=2,
+            colour="blue",text=element_text(size=18))
+
+Poisson.p_dist
+ggsave("Q5i.png",dpi=300, width = 4, height = 2)
+
+```
+
+
+
+b) What is the probability that there will be exactly 10 phone calls in the first 30 minutes and exactly 20 phone calls in the second 30 minutes.
+
+__ANSWER:__
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=TRUE, warning=FALSE}
+No_of_Calls<-15 # Lambda
+Pr_Calls_10<-dpois(10,No_of_Calls) #  10 Calls Poisson Probability
+Pr_Calls_20<-dpois(20,No_of_Calls) #  20 Calls Poisson Probability
+Pr_Calls_10_then_20 <- Pr_Calls_10*Pr_Calls_20
+```
+
+Probability of 10 calls in the first half-hour:
+\[\Pr(10)=\frac{15^10e^{-15}}{10!}=`r Pr_Calls_10`. \]
+Probability of 20 calls in the first half-hour:
+
+\[\Pr(20)=\frac{15^20e^{-15}}{20!}=`r Pr_Calls_20`. \]
+
+The combination of both:
+\[\Pr(10)\times \Pr(20)=`r Pr_Calls_10_then_20`. \]
+
+

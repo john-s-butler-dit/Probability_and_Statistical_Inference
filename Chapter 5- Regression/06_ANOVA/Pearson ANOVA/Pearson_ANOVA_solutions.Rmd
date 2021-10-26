@@ -1,0 +1,152 @@
+---
+title: "ANOVA Tutorial Sheet Solutions"
+output:
+#pdf_document: default
+  word_document: default
+---
+## QUESTION 1. 
+
+```{r setup, include=FALSE,dpi=300,echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(knitr)
+
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(ggpubr)
+library(rstatix)
+```
+
+Read in data and ;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+MYPEARSON<-read.csv("PearsonLeeSimple.csv",stringsAsFactors = TRUE)
+
+summary(MYPEARSON)
+Pearson_child_parent<-lm(parent~par,data=MYPEARSON)
+summary(Pearson_child_parent)
+
+```
+
++ ii Child's height vs father's height;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+
+
+ggboxplot(MYPEARSON, x="par", y = "parent",color="par",  add = "jitter")+
+    theme_classic()
+```
+
++ iii Child's height vs mother's height;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+anova_one_way <- aov(parent~par, data = MYPEARSON)
+summary(anova_one_way)
+par(mfrow = c(2, 2))
+plot(anova_one_way)
+```
+
+
+## Tukey Follow Up
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+TukeyHSD(anova_one_way)
+```
+## t-test
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+T_test <- t.test(parent~par, data = MYPEARSON,paired = FALSE)
+T_test
+```
+## Child
+
+
++ ii Child's height vs father's height;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+
+
+ggboxplot(MYPEARSON, x="chl", y = "child",color="chl",  add = "jitter")+
+    theme_classic()
+```
+
++ iii Child's height vs mother's height;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+anova_one_way <- aov(child~chl, data = MYPEARSON)
+summary(anova_one_way)
+par(mfrow = c(2, 2))
+plot(anova_one_way)
+```
+
+
+## Tukey Follow Up
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+TukeyHSD(anova_one_way)
+```
+## t-test
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+T_test <- t.test(child~chl, data = MYPEARSON,paired = FALSE)
+T_test
+```
+
+## BIGGER ANOVA
+
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+Parent<-MYPEARSON[,c(3,5)]
+Child<-MYPEARSON[,c(2,6)]
+colnames(Parent)[1] <- "Height"
+colnames(Child)[1] <- "Height"
+colnames(Parent)[2] <- "Type"
+colnames(Child)[2] <- "Type"
+Stacked_MYPEARSON<-rbind(Child,Parent)
+
+Stacked_MYPEARSON$Type<-as.factor(Stacked_MYPEARSON$Type)
+summary(Stacked_MYPEARSON)
+anova_one_way <- aov(Height~Type, data = Stacked_MYPEARSON)
+summary(anova_one_way)
+(TukeyHSD(anova_one_way))
+attach(Stacked_MYPEARSON)
+(pairwise.t.test(Height, Type, p.adjust.method = "bonf"))
+ggboxplot(Stacked_MYPEARSON, x="Type", y = "Height",color="Type",  add = "jitter")+
+    theme_classic()
+par(mfrow = c(2, 2))
+plot(anova_one_way)
+
+```
+
+## Tidyverse Version
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+
+res.aov <- Stacked_MYPEARSON %>% anova_test(Height~Type)
+res.aov
+pwc <- Stacked_MYPEARSON %>% tukey_hsd(Height~Type)
+kable(pwc)
+
+pwc <- pwc %>% add_xy_position(x = "Type")
+ggboxplot(Stacked_MYPEARSON, x = "Type", y = "Height") +
+  stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(pwc)
+    )
+
+
+pwc3 <- Stacked_MYPEARSON %>% 
+  pairwise_t_test(
+    Height~Type, pool.sd = FALSE,
+    p.adjust.method = "fdr"
+    )
+kable(pwc3)
+#
+pwc3 <- pwc3 %>% add_xy_position(x = "Type")
+ggboxplot(Stacked_MYPEARSON, x = "Type", y = "Height",color="Type",  add = "jitter") +
+  stat_pvalue_manual(pwc3, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(pwc3)
+    )
+
+#plot(pwc)
+```

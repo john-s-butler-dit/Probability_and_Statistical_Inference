@@ -1,0 +1,179 @@
+---
+title: "ANOVA Tutorial Sheet Solutions"
+output:
+#pdf_document: default
+  word_document: default
+---
+## QUESTION 1. 
+
+```{r setup, include=FALSE,dpi=300,echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(knitr)
+
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(ggpubr)
+library(rstatix)
+```
+
+Read in data and ;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+Simple<-read.csv("SimpleData.csv",stringsAsFactors = TRUE)
+
+summary(Simple)
+
+Simple %>%
+    group_by(Group) %>%
+     summarize(mean_size = mean(Observation, na.rm = TRUE))
+
+```
+
++ ii Child's height vs father's height;
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+
+
+ggboxplot(Simple, x="Group", y = "Observation",color="Group",  add = "jitter")+
+    theme_classic()
+```
+
+## ANOVA
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+anova_one_way <- aov(Observation~Group, data = Simple)
+summary(anova_one_way)
+par(mfrow = c(2, 2))
+plot(anova_one_way)
+```
+
+## T-test
+
+### Uncorrected
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+res.aov <- Simple %>% anova_test(Observation~Group)
+res.aov
+
+fut_un <- Simple %>% 
+  pairwise_t_test(
+    Observation~Group, pool.sd = TRUE,
+    p.adjust.method = "none"
+    )
+kable(fut_un)
+
+fut_un <- fut_un %>% add_xy_position(x = "Group")
+ggboxplot(Simple, x = "Group", y = "Observation") +
+  stat_pvalue_manual(fut_un, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(fut_un)
+    )
+```
+
+### Bonferonni
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+fut_bon <- Simple %>% 
+  pairwise_t_test(
+    Observation~Group, pool.sd = TRUE,
+    p.adjust.method = "bonferroni"
+    )
+kable(fut_bon)
+
+fut_bon <- fut_bon %>% add_xy_position(x = "Group")
+ggboxplot(Simple, x = "Group", y = "Observation") +
+  stat_pvalue_manual(fut_bon, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(fut_bon)
+    )
+```
+
+
+
+
+### BH
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+fut_bh <- Simple %>% 
+  pairwise_t_test(
+    Observation~Group, pool.sd = TRUE,
+    p.adjust.method = "BH"
+    )
+kable(fut_bh)
+fut_bh <- fut_bh %>% add_xy_position(x = "Group")
+ggboxplot(Simple, x = "Group", y = "Observation") +
+  stat_pvalue_manual(fut_bh, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(fut_bh)
+    )
+
+
+```
+
+
+### BY
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+fut_by <- Simple %>% 
+  pairwise_t_test(
+    Observation~Group, pool.sd = TRUE,
+    p.adjust.method = "BY"
+    )
+kable(fut_by)
+
+
+fut_by <- fut_by %>% add_xy_position(x = "Group")
+ggboxplot(Simple, x = "Group", y = "Observation") +
+  stat_pvalue_manual(fut_by, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(fut_by)
+    )
+
+```
+
+
+## Tukey Follow Up
+
+$$(\bar{x_i}−\bar{x_j})\pm q_{\alpha,k,N-k}\sqrt{\frac{MSE}{2}\big(\frac{1}{n_i}+\frac{1}{n_j}\big)}$$
+ $$(\bar{x_B}−\bar{x_A})\pm q_{\alpha,3,22-3}\sqrt{\frac{MSE}{2}\big(\frac{1}{n_B}+\frac{1}{n_A}\big)}$$
+
+ $$(6.5-5)\pm q_{\alpha,3,22-3}\sqrt{\frac{5.895   }{2}\frac{1}{8}+\frac{1}{9}}$$
+ 
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+FUP_Tuk<-TukeyHSD(anova_one_way)
+
+FUP_Tuk
+plot(FUP_Tuk)
+
+(6.5-5)-qtukey(1-0.05,3,19)*sqrt(5.895/2*(1/8+1/9))
+(6.5-5)+qtukey(1-0.05,3,19)*sqrt(5.895/2*(1/8+1/9))
+```
+## t-test
+
+```{r,dpi=300,echo=FALSE, warning=FALSE}
+res.aov <- Simple %>% anova_test(Observation~Group)
+res.aov
+
+pwc <- Simple %>% tukey_hsd(Observation~Group)
+kable(pwc)
+
+pwc <- pwc %>% add_xy_position(x = "Group")
+ggboxplot(Simple, x = "Group", y = "Observation") +
+  stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.aov, detailed = TRUE),
+    caption = get_pwc_label(pwc)
+    )
+
+
+plot((0:1000)/100,df((0:1000)/100, 2, 19),xlab = "F",ylab="Pr",type = "l",main = "F-distribution df=2, df=19")
+abline(v = c(qf(0.95, 2, 19),4.364),col=c("red", "blue"), lty=c(1,2), lwd=c(1, 3))
+
+
+```
+
+

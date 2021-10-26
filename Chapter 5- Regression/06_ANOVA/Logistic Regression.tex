@@ -1,0 +1,281 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Sample examination layout for 		       	%%%%%
+%%%%%          dit_maths_exam.sty 			%%%%%
+%%%%%							%%%%%
+%%%%%	V3 September 2015    				%%%%%
+%%%%%	- Use new sty file to mirror CoSH template 	%%%%%
+%%%%%   - include bw option for black & white logo      %%%%%
+%%%%%	- instructions on new programmes		%%%%%
+%%%%%							%%%%%
+%%%%%	V2.1 October 2014    				%%%%%
+%%%%%	- Fix bug using old sty file naming convention 	%%%%%
+%%%%%							%%%%%
+%%%%%	V2 October 2014    				%%%%%
+%%%%%	- Remove reference to Springboard programmes 	%%%%%
+%%%%%	- included new external examiners		%%%%%
+%%%%%							%%%%%
+%%%%%	V1.1 October 2013    				%%%%%
+%%%%%	- New external examiner instruction included	%%%%%
+%%%%%	- Two new rubrics: DT205/DT220/1 Programming	%%%%%
+%%%%%							%%%%%
+%%%%%	V1 February 2013    				%%%%%
+%%%%%	- Original version				%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt]{article}
+
+%\usepackage{amsmath,color,graphicx,epstopdf,wrapfig,enumerate}
+\usepackage{amsmath,enumerate,graphics,graphicx,color,amsthm}
+%\usepackage{venturis2}
+%\usepackage[T1]{fontenc}
+\usepackage[adobe-utopia]{mathdesign}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\newcommand{\lqs}{\leqslant}
+\newcommand{\gqs}{\geqslant}
+\newcommand{\R}{\mathbb{R}}
+\definecolor{gray}{RGB}{128,128,128}
+\definecolor{lime}{RGB}{153,204,0}
+\newtheoremstyle{Qstyle}{}{20pt}{}{}{\bfseries}{:\quad}{ }{}
+\theoremstyle{Qstyle}
+\newtheorem{q}{Q\hspace{-2pt}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% 	ENSURE LATEST VERSION OF STYLE IS USED HERE	%%%%%
+%%%%%   ---use option argument bw to use b&w logo       %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{dit_maths_exam_V3}		%use for color logo
+\usepackage[bw]{dit_maths_exam_V3}	%use for bw logo
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% include optional packages here 		       	%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% include local command definitions here	       	%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter examination code from timetable	   	%%%%%
+%%%%% ---ensure all concurrent exams are included---	%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\code}{W8998/101}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter module title including module code 	       	%%%%%
+%%%%% ---format: MATH XXXX: Title of Module		%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\mtitle}{MATH 4001: Probability and Statistical Inference}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter all programmes 				%%%%%
+%%%%% ---separate with \\[10pt] & use the definitions:	%%%%%
+%%%%%		\dt{205} \dt{220} 			%%%%%
+%%%%%		\dt{6248} \dt{7248} \dt{8248} 		%%%%%
+%%%%%		\dt{8998}				%%%%%
+%%%%%		\dt{9205} (includes DT9206)		%%%%%
+%%%%%		\dt{9209} (includes DT9210)		%%%%%
+%%%%%		\dt{9211} (includes DT9212)		%%%%%
+%%%%%[only for legacy/repeat students 2015/2016] 	%%%%%
+%%%%%		\dt{234} \dt{238} 			%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\progs}{\dt{8998} \\[10pt] } 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter stage number		 	       	%%%%%
+%%%%%  	- use second definition if no stage  		%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\stage}{Stage 1} 	%comment if no stage
+\renewcommand{\stage}{\vspace{-0.25in}}	%comment if stage exists
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter examination session	& ACADEMIC year		%%%%%
+%%%%% ---use following definitions:			%%%%%
+%%%%%		\winter \summer \autumn			%%%%%
+%%%%% ---use format YYYY/YYYY				%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\session}{\winter}
+\renewcommand{\acyear}{2015/2016}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter examiners					%%%%%
+%%%%% ---use following definitions:			%%%%%
+%%%%%		\appleby \murphy \riordan \tuite	%%%%%
+%%%%% Head of School will be included automatically	%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\examiner}{Dr. John S. Butler}
+%\renewcommand{\external}{\riordan}  	%comment if no external
+\renewcommand{\external}{ } 		%comment if external exists
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% enter date time					%%%%%
+%%%%% ---use following formats:				%%%%%
+%%%%%	Thursday, 22 August 2014	2.00 -- 4.00 pm	%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\exdate}{Monday, 4th January 2016}
+\renewcommand{\extime}{9.30 -- 11.30 am}
+%\newcommand{\duration}{2 hours}
+%\newcommand{\duration}{3 hours}
+\newcommand{\duration}{2 hour}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+\newcommand*{\Pick}[2]{{}^{#1}P_{#2}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% rubrics: comment/uncomment as necessary		%%%%%
+%%%%% ---there are two rubric lines rubrica & rubricb	%%%%%
+%%%%% ---use standard wordings given			%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\rubrica}{Attempt three questions only}
+%\renewcommand{\rubrica}{Full marks may be obtained by answering three questions.  Candidate's three best questions will contribute to their final mark.
+%\renewcommand{\rubrica}{Attempt all qustions}
+%\renewcommand{\rubrica}{Attempt question 1 and any two other questions}
+\renewcommand{\rubrica}{Answer four questions}
+%\renewcommand{\rubrica}{Attempt question 1 and any three other questions}
+\renewcommand{\rubricb}{All questions carry equal marks}
+%\renewcommand{\rubricb}{Answer at least two questions from each section.  All questions carrry equal marks}
+%\renewcommand{\rubricb}{Question 1 carries 40 marks.  All other questions carry 20 marks each.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% comment out those that are not permitted		%%%%%
+%%%%% PLEASE ONLY INCLUDE ITEMS THAT ARE NECESSARY 	%%%%%
+%%%%% AND APPROPRIATE					%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\calculators	%comment out if not permitted
+%\tables		%comment out if Mathematical tables not to be provided
+\stats		%comment out if New Cambridge Statistical Tables not to be provided
+
+
+
+	\begin{document}
+	\thispagestyle{empty}
+	\begin{center}
+	\Large{\bf{ Logistic Regression}}
+	\end{center}
+	\begin{enumerate}
+		
+		\item
+		
+		The NFL collected data on field goal success in professional American Football games. The data consisted of a binary variable for success (Success=1, Failure=0) and the distance in yards from the goal. The data were submitted to a logistic regression, a portion of the R out of the analysis is given below\\
+			\noindent\fbox{%
+				\parbox{340pt}{%
+					Call:
+					glm(formula = Success $\sim$ Yards, family = binomial("logit"), data = fieldgoal)\\
+					
+					Deviance Residuals: \\
+					\begin{tabular}{ccccc}
+						Min    &     1Q &    Median &        3Q  &      Max \\  
+						-2.6568  &  0.2718 &   0.4166 &   0.6938  &  1.4750  \\  
+					\end{tabular}\\
+					Coefficients:\\
+					\begin{tabular}{lrr}
+						& Estimate & Std. Error  \\
+						(Intercept) &5.69788  &  0.45110  \\
+						Yards        &  -0.10991 &   0.01058     
+					\end{tabular}
+				}
+			}
+			\begin{enumerate}
+				\item Write the formula of the logistic regression, explaining the terms used in the expression.
+				\mrk{3 marks}
+				\item Calculate the z-value of the estimates
+				\mrk{5 marks}
+				\item What are the estimated odds that a 60 yard field goal will succeed
+				\mrk{4 marks}
+				\item What is the probability that a 30 yard field goal will succeed, and what is probability it will fail. 
+				\mrk{5 marks}
+				
+			\end{enumerate}
+		
+		\newpage
+			\item  Sahoo and Pandalai (1999) conducted a study on the success or failure of finding gold deposits as a function of water/chemical factors: As level, Sb level, and presence==1 or absence==0 of lineament. A portion of the R analysis is given below\\
+			\noindent\fbox{%
+				\parbox{340pt}{%
+					Call:
+					glm(formula = Presence $\sim$ Aslevel+Sblevel+LineamentProx, family = binomial("logit"), data = gold)\\
+					
+					Deviance Residuals: \\
+					\begin{tabular}{ccccc}
+						Min    &     1Q &    Median &        3Q  &      Max \\  
+						-2.6568  &  0.2718 &   0.4166 &   0.6938  &  1.4750  \\  
+					\end{tabular}\\
+					Coefficients:\\
+					\begin{tabular}{lrr}
+						& Estimate & Std. Error  \\
+						(Intercept) &-7.6096  &   3.1661   \\
+						Aslevel        & 1.2046  &   0.4899    \\
+						Sblevel        & 1.4210    & 0.7301   \\    
+						LineamentProx  & 3.1973    & 1.8911   
+					\end{tabular}
+				}
+			}
+			\begin{enumerate}
+				\item Write the formula of the logistic regression, explaining the terms used in the expression.
+				\mrk{3 marks}
+				\item Calculate the z-value of the estimates.
+				\mrk{7 marks}
+				\item What are the probability of finding a gold deposit given an As level of 3, Sblevel of 4 and no lineament.
+				\mrk{4 marks}
+				\item Given a 95\% rejection criteria with a z-criteria of (-1.96, 196), are the estimates of the coefficents significant. 
+				\mrk{3 marks}
+				
+			\end{enumerate}
+			
+		
+		
+		
+	\end{enumerate}
+	
+	
+	\newpage
+	
+	\section*{Formulae}
+	
+	\subsubsection*{Counting Rules}
+	\subsubsection*{Permutations }
+	\[\Pick{n}{r}=\frac{n!}{(n-r)!}\] 
+	\subsubsection*{Combinations}
+	\[\Comb{n}{r}=\left( \begin{array}{c}
+	n  \\
+	r  \\
+	\end{array} \right)=\frac{n!}{r!(n-r)!}\] 
+	
+	\subsubsection*{Addition of Probability}
+	\[p(A\cup B)=p(A)+p(B)-p(A\cap B)\]
+	\subsubsection*{Conditional Probability}
+	\[p(A|B)=\frac{p(A \cap B)}{p(B)}\]
+	\subsubsection*{Bayes Formula}
+	\[p(H_1|A)=\frac{p(A|H_1)p(H_1)}{p(A|H_1)p(H_1)+p(A|H_2)p(H_2)}\]
+	
+	
+	\subsubsection*{Probability Mass Functions}
+	\[E[X]=\Sigma_{i=1} x_i p(x_i)\]
+	\[Var[X]=\Sigma_{i=1} (x_i-\mu)^2 p(x_i)\]
+	\subsubsection*{Geometric Distributions}
+	\[p(k)=q^{(k-1)}p, \ \ k=1,2,... \]
+	\[E[k]=\frac{1}{p} \ \ \ Var[k]=\frac{q}{p^2}\]
+	
+	\subsubsection*{Binomial Distributions}
+	\[p(k)= \left( \begin{array}{c}
+	n  \\
+	k  \\
+	\end{array} \right)p^kq^{n-k}, \ \ k=0,1,2,...n \]
+	\[E[k]=np\ \ \ Var[k]=npq\]
+	
+	\subsubsection*{Poisson Distributions}
+	\[p(k)=\frac{\lambda^ke^{-\lambda}}{k!}, \ \ k=0,1,2,... \]
+	\[E[k]=\lambda \ \ \ Var[k]=\lambda \]
+	
+	\subsubsection*{Chi squared}
+	\[\chi_{GoF}=\sum \frac{(O-E)^2}{E} ~\chi^2_{k-1},\ \  \chi_{Ind}=\sum \frac{(O-E)^2}{E} ~\chi^2_{(r-1)(c-1)} \]
+	
+	\subsubsection*{Linear Regression}
+	\[  y_i=\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+... \]
+	\[  y_i=\beta_0+\beta_1 x_{i1}\]
+	\[  \beta_1 =\frac{Cov(x,y)}{SS_{xx}}, \ \  \beta_0 =\bar{y}-\beta_1\bar{x}\]
+	
+	\subsubsection*{Logistic Regression}
+	\[  p_i=\frac{e^{\eta_i}}{1+e^{\eta_i}}, \ \ \ \eta_i=\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+... \]
+	
+	\end{document}

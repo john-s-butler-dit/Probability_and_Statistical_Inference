@@ -1,0 +1,227 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={ANOVA Tutorial Sheet Solutions},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{ANOVA Tutorial Sheet Solutions}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{question-1.}{%
+\subsection{QUESTION 1.}\label{question-1.}}
+
+Read in data and ;
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = parent ~ par, data = MYPEARSON)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.2607  -3.2607   0.3761   3.3761   8.3761 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  67.1239     0.2151  312.03   <2e-16 ***
+## parMother    -4.3632     0.3092  -14.11   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.221 on 744 degrees of freedom
+## Multiple R-squared:  0.2111, Adjusted R-squared:   0.21 
+## F-statistic: 199.1 on 1 and 744 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{itemize}
+\item
+  ii Child's height vs father's height;
+  \includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-2-1.pdf}
+\item
+  iii Child's height vs mother's height;
+\end{itemize}
+
+\begin{verbatim}
+##              Df Sum Sq Mean Sq F value Pr(>F)    
+## par           1   3547    3547   199.1 <2e-16 ***
+## Residuals   744  13255      18                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-3-1.pdf}
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-3-2.pdf}
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-3-3.pdf}
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-3-4.pdf}
+
+\hypertarget{tukey-follow-up}{%
+\subsection{Tukey Follow Up}\label{tukey-follow-up}}
+
+\begin{verbatim}
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = parent ~ par, data = MYPEARSON)
+## 
+## $par
+##                    diff       lwr       upr p adj
+## Mother-Father -4.363231 -4.970319 -3.756144     0
+\end{verbatim}
+
+\hypertarget{t-test}{%
+\subsection{t-test}\label{t-test}}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  parent by par
+## t = 14.124, df = 743.16, p-value < 2.2e-16
+## alternative hypothesis: true difference in means between group Father and group Mother is not equal to 0
+## 95 percent confidence interval:
+##  3.756744 4.969719
+## sample estimates:
+## mean in group Father mean in group Mother 
+##             67.12390             62.76066
+\end{verbatim}
+
+\hypertarget{bigger-anova}{%
+\subsection{BIGGER ANOVA}\label{bigger-anova}}
+
+\begin{verbatim}
+##      Height          Type          
+##  Min.   :52.50   Length:1492       
+##  1st Qu.:61.50   Class :character  
+##  Median :65.50   Mode  :character  
+##  Mean   :65.53                     
+##  3rd Qu.:69.50                     
+##  Max.   :79.50
+\end{verbatim}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value Pr(>F)    
+## Type           3   8690    2896   152.8 <2e-16 ***
+## Residuals   1488  28206      19                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{verbatim}
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = Height ~ Type, data = Stacked_MYPEARSON)
+## 
+## $Type
+##                       diff        lwr         upr     p adj
+## Father-Daughter  3.4781161  2.6741466  4.28208550 0.0000000
+## Mother-Daughter -0.8851152 -1.7024395 -0.06779101 0.0277309
+## Son-Daughter     5.0485861  4.2276785  5.86949377 0.0000000
+## Mother-Father   -4.3632313 -5.1836072 -3.54285542 0.0000000
+## Son-Father       1.5704701  0.7465241  2.39441609 0.0000063
+## Son-Mother       5.9337014  5.0967193  6.77068346 0.0000000
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 9
+##   term  group1   group2 null.value estimate conf.low conf.high      p.adj
+## * <chr> <chr>    <chr>       <dbl>    <dbl>    <dbl>     <dbl>      <dbl>
+## 1 Type  Daughter Father          0    3.48     2.67     4.28   0         
+## 2 Type  Daughter Mother          0   -0.885   -1.70    -0.0678 0.0277    
+## 3 Type  Daughter Son             0    5.05     4.23     5.87   0         
+## 4 Type  Father   Mother          0   -4.36    -5.18    -3.54   0         
+## 5 Type  Father   Son             0    1.57     0.747    2.39   0.00000626
+## 6 Type  Mother   Son             0    5.93     5.10     6.77   0         
+## # ... with 1 more variable: p.adj.signif <chr>
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  Height and Type 
+## 
+##        Daughter Father  Mother 
+## Father < 2e-16  -       -      
+## Mother 0.032    < 2e-16 -      
+## Son    < 2e-16  6.3e-06 < 2e-16
+## 
+## P value adjustment method: bonferroni
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   .y.    group1   group2    n1    n2 statistic    df        p    p.adj p.adj.signif
+## * <chr>  <chr>    <chr>  <int> <int>     <dbl> <dbl>    <dbl>    <dbl> <chr>       
+## 1 Height Daughter Father   391   385    -11.2   774. 4.42e-27 2.65e-26 ****        
+## 2 Height Daughter Mother   391   361      2.85  749. 5   e- 3 2.7 e- 2 *           
+## 3 Height Daughter Son      391   355    -15.3   728. 3.82e-46 2.29e-45 ****        
+## 4 Height Father   Mother   385   361     14.1   743. 2.7 e-40 1.62e-39 ****        
+## 5 Height Father   Son      385   355     -4.79  721. 2   e- 6 1.2 e- 5 ****        
+## 6 Height Mother   Son      361   355    -18.1   704. 2.15e-60 1.29e-59 ****
+\end{verbatim}
+
+\includegraphics{Pearson_ANOVA_solutions_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\end{document}

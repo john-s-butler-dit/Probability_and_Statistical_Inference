@@ -1,7 +1,7 @@
 ---
 title: "Hypothesis Testing Solutions"
 output:
-  pdf_document: default
+#  pdf_document: default
   word_document: default
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Problem Sheet 2a - Probability Mass Distributions"
 output:
-#  pdf_document: default
+  pdf_document: default
   word_document: default
 ---
 
@@ -167,7 +167,7 @@ ii	Find the probability that the marketer had to ask exactly 2 people.
 
 ### __ANSWER__
 
-\[\Pr(k)=`r q`^{(2-1)}`r p`= `r q`(`r p`)=`r q*p`\]
+\[\Pr(2)=`r q`^{(2-1)}`r p`= `r q`(`r p`)=`r q*p`\]
 
 
 iii What is the E [X ] and V ar [X ] of the distribution.
@@ -185,6 +185,7 @@ People<-0:20 # Number of Games
 E_X<-1/p # Expected Value
 Var_X<-(q)/(p*p) # Variance
 Pr_win<-c(dgeom(People,p))
+People<-0:20+1
 
 df <- data.frame(People,Pr_win)
 kable(df,caption="Q3")

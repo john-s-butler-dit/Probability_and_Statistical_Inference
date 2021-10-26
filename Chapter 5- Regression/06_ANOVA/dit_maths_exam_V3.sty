@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%   LaTeX style file for	examinations          	%%%%%
+%%%%%	School of Mathematical Sciences 		%%%%%
+%%%%%   Dublin Institute of Technology			%%%%%
+%%%%%                                                  	%%%%%
+%%%%%	Version 3       September 2015   		%%%%%
+%%%%%	- Modify to mirror College exam template 	%%%%%
+%%%%%	     including use of serif cover font          %%%%%
+%%%%%   - include bw option for black & white logo      %%%%%
+%%%%%   - include new programmes			%%%%%
+%%%%%	- correct titles (Professor) for externals	%%%%%
+%%%%%							%%%%%
+%%%%%  	Version 2.1	October 2014			%%%%%
+%%%%%	- Fix bug with removing Springboard programmes  %%%%%
+%%%%%	- Fix subsubsection indent			%%%%%
+%%%%%   					     	%%%%%
+%%%%%  	Version 2	October 2014			%%%%%
+%%%%%	- Remove additional space above subsection mark %%%%%
+%%%%%   - Retired Springboard programme codes        	%%%%%
+%%%%%   - Replaced external Cox with Tuite            	%%%%%
+%%%%%   - Replaced external Gleeson with Appleby      	%%%%%
+%%%%%   - Replaced external Connolly with Murphy       	%%%%%
+%%%%%   - Rephrased the tables not provided       	%%%%%
+%%%%%                                                  	%%%%%
+%%%%%  	Version 1.1	October 2013			%%%%%
+%%%%%	- O'Riordan replace Hegarty        		%%%%%
+%%%%%	- Add HoS by default to examiners      		%%%%%
+%%%%%	- Add New Statistical Tables are not provided	%%%%%
+%%%%%				        		%%%%%
+%%%%%	Version 1.0 	February 2013        		%%%%%
+%%%%%	- original version	        		%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{dit_maths_exam_V3}
+
+\newcommand{\logo}{\includegraphics[width=27mm]{DIT_logocol.eps}}
+\DeclareOption{bw}{
+\renewcommand{\logo}{\includegraphics[width=27mm]{DIT_logo.png}}
+}
+
+\ProcessOptions
+\RequirePackage{fancyhdr,lastpage,bold-extra,graphicx, xfrac}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9.75in}
+\setlength{\oddsidemargin}{0.1in}
+\setlength{\textwidth}{6.25in}
+\linespread{1.15}
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\alph{enumii})}}
+\renewcommand{\labelenumiii}{\roman{enumiii})}
+\setlength{\leftmarginii}{18pt}
+\setlength{\leftmarginiii}{10pt}
+
+\pagestyle{fancy}
+\lfoot{}
+\cfoot{} % page number
+\rfoot{\sffamily Page~\thepage~of~\pageref{LastPage}\rmfamily}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\code}{\emph{Exam code missing!}}
+\newcommand{\mtitle}{MATH XXXX: Title missing}
+\newcommand{\progs}{\emph{Programmes missing!}}
+\newcommand{\dt}[1]
+{\ifnum#1=205 {DT205 BSc Hons Mathematical Sciences} \else
+\ifnum#1=220 {DT220 BSc Hons Industrial Mathematics} \else
+\ifnum#1=234 {DT234 MSc Applied Mathematics \& Theoretical Physics} \else
+\ifnum#1=238 {DT238 MSc Applied Mathematics \& Theoretical Physics} \else
+\ifnum#1=6248 {DT6248 H Cert Mathematics} \else
+\ifnum#1=7248 {DT7248 BSc Ord Mathematics} \else
+\ifnum#1=8248 {DT8248 BSc Hons Mathematics} \else
+\ifnum#1=9205 {DT9205 MSc Mathematical Physics\\[10pt]
+DT9206 MSc Mathematical Physics} \else
+\ifnum#1=9209 {DT9209 MSc Applied Mathematics\\[10pt]
+DT9210 MSc Applied Mathematics} \else
+\ifnum#1=9211 {DT9211 MSc Applied Mathematics\\[10pt]
+DT9212 MSc Applied Mathematics} \else
+\ifnum#1=8998 {DT8998 CPD Diploma in Data Analysis for Professionals}\else
+\ifnum#1=9002 {DT9002 PG Cert in Applied Statistics}\else
+%\ifnum#1=2482 {DT248 H Cert Mathematics} \else
+%\ifnum#1=2483 {DT248 BSc Ord Mathematics} \else
+%\ifnum#1=2484 {DT248 BSc Hons Mathematics} \else
+%\ifnum#1=785 {DT785 CPD Diploma Financial Mathematics \& Analytics} \else
+%\ifnum#1=790 {DT790 CPD Diploma Statistics \& Operations Research} \else
+%\ifnum#1=794 {DT794 H Cert Mathematical Studies} \else
+%\ifnum#1=797 {DT797 BSc Ord Mathematical Studies} \else
+%\ifnum#1=799 {DT799 BSc Hons Mathematical Studies} \else
+Not valid code
+%\fi\fi\fi\fi\fi
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}
+\newcommand{\stage}{\emph{Stage missing!}}
+\newcommand{\summer}{SUMMER EXAMINATIONS}
+\newcommand{\sampleone}{SAMPLE EXAMINATION ONE}
+\newcommand{\sampletwo}{SAMPLE EXAMINATION TWO}
+\newcommand{\winter}{WINTER EXAMINATIONS}
+\newcommand{\autumn}{AUTUMN EXAMINATIONS}
+\newcommand{\session}{\emph{Session missing!}}
+\newcommand{\acyear}{\emph{Year missing!}}
+\newcommand{\examiner}{\emph{Examiner missing!}}
+\newcommand{\external}{\emph{External examiner missing!}}  
+%\newcommand{\gleeson}{Professor J Gleeson}
+%\newcommand{\connolly}{Professor J Connolly}
+\newcommand{\tuite}{Professor M Tuite}
+\newcommand{\appleby}{Professor J Appleby}
+\newcommand{\murphy}{Professor T Murphy}
+\newcommand{\hayes}{Dr K Hayes}
+%\newcommand{\cox}{Dr E Cox}
+%\newcommand{\hegarty}{Dr A Hegarty}
+\newcommand{\riordan}{Professor E O'Riordan}
+\newcommand{\hos}{Dr C Hills}
+\newcommand{\exdate}{\emph{Date missing!}}
+\newcommand{\extime}{\emph{Time missing!}}
+\newcommand{\rubrica}{Attempt three questions only}
+\newcommand{\rubricb}{All questions carry equal marks}
+\newcommand{\calc}{Calculators are NOT permitted}
+\newcommand{\calculators}{\renewcommand{\calc}{Approved calculators may be used}}
+\newcommand{\tabl}{Mathematical tables are NOT permitted}
+\newcommand{\tables}{\renewcommand{\tabl}{Mathematical tables are provided}}
+\newcommand{\statt}{New Cambridge Statistical Tables are NOT permitted}
+\newcommand{\stats}{\renewcommand{\statt}{New Cambridge Statistical Tables are provided}}
+\newcommand{\qnmrk}{33}
+\newenvironment{question}[1]{\renewcommand{\qnmrk}{#1}\item}{\begin{flushright}\textbf{[\qnmrk]}\end{flushright}\medskip}
+
+\newcommand{\makecover}{
+%\sffamily
+\rmfamily
+\pagestyle{empty}
+\begin{flushright}\code\end{flushright}
+\vspace{-15pt}
+\begin{center}
+{\logo\vskip 8pt
+\usefont{T1}{ptm}{b}{n}{\fontsize{10}{12}\selectfont{DUBLIN INSTITUTE OF TECHNOLOGY}}}\\[0.1in]
+{\usefont{T1}{ptm}{b}{n}{\fontsize{12}{12}\selectfont{School of Mathematical Sciences}}}
+\vskip 1pt
+\rule{6cm}{0.4pt}
+\vskip 10pt
+{\usefont{T1}{ptm}{b}{n}{\fontsize{16}{12}\selectfont{\progs}}}\\[0.25in]
+{\usefont{T1}{ptm}{b}{n}{\fontsize{12}{12}\selectfont \stage}}
+\vskip 5pt
+\rule{6cm}{0.4pt}
+\vskip 10pt
+{\usefont{T1}{ptm}{b}{n}{\session\ \acyear}}
+\vskip 5pt
+\rule{6cm}{0.4pt}
+\vskip 10pt
+{\usefont{T1}{ptm}{b}{sc}{\fontsize{14}{12}\selectfont{\mtitle}}}
+\vskip 5pt
+\rule{6cm}{0.4pt}
+\vskip 10pt
+{\usefont{T1}{ptm}{m}{sc}{\fontsize{11}{12}\selectfont \examiner\\[5pt] \hos\\[5pt]\external}}\\[0.2in]
+\vfill
+{\extime,\ \exdate\\[8pt]Duration: \duration}\\[25pt]
+{\rubrica}\\[3pt]
+{\rubricb}\\[3pt]
+{\calc}\\[3pt]
+{\tabl}\\[3pt]
+{\statt}
+\end{center}
+\newpage
+\rmfamily
+\pagestyle{fancy}}
+
+\newcommand{\mrk}[1]{\vspace*{-\baselineskip}\begin{flushright}(#1)\end{flushright}}
+%\newcommand{\mrk}[1]{\begin{flushright}(#1)\end{flushright}}
+
