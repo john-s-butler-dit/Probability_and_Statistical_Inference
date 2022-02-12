@@ -30,7 +30,7 @@ Course Content:
 ## References
 ### Essential Reading: (author, title, publisher)
 
-Devore & Peck  - Statistics: The exploration and analysis of data, 2011.
+Peck, R., & Devore, J. L. (2011). Statistics: The exploration & analysis of data. Cengage Learning.
 
 
 ### Supplemental Reading: (author - title, publisher, date)
@@ -41,14 +41,16 @@ James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to s
 
 Poldrack R. (2020) Statistical Thinking in the 21st Century https://statsthinking21.github.io/statsthinking21-core-site/index.html
 
-Wickham, H., & Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data. " O'Reilly Media, Inc.". https://r4ds.had.co.nz
+Wickham, H., and Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data. O'Reilly Media, Inc. https://r4ds.had.co.nz
 
 ### Popular Science: (author, title, publisher, date)
-Fry, H. - Hello World: How to be Human in the Age of the Machine, Doubleday, 2018
+Fry, H. (2018), Hello World: How to be Human in the Age of the Machine, Doubleday
 
-Rosling, H, Rosling, O, Rosling Ronnlund, - Factfulness: Ten Reasons We're Wrong About The World - And Why Things Are Better Than You Think, Sceptre, 2019
+Rosling, H, Rosling, O, Rosling Ronnlund, (2019), Factfulness: Ten Reasons We're Wrong About The World - And Why Things Are Better Than You Think, Sceptre
 
-Silver, N, - The Signal and the Noise: The Art and Science of Prediction, Penguin, 2013
+Silver, N, (2013) The Signal and the Noise: The Art and Science of Prediction, Penguin
+
+Spiegelhalter, D. (2019). The art of statistics: Learning from data. Penguin UK.
 
 ### Podcasts: (name, website)
 Deep Mind: Podcast, https://deepmind.com/blog/article/welcome-to-the-deepmind-podcast 
@@ -56,3 +58,7 @@ Deep Mind: Podcast, https://deepmind.com/blog/article/welcome-to-the-deepmind-po
 Freakonomics Podcast, http://freakonomics.com/ 
 
 More or Less: Behind the Stats https://www.bbc.co.uk/programmes/p02nrss1/episodes/downloads 
+
+### Module Playlist
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3MP5KPwjPTBSLQSkHFofwU?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
