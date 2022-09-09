@@ -43,6 +43,9 @@ Poldrack R. (2020) Statistical Thinking in the 21st Century https://statsthinkin
 
 Wickham, H., and Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data. O'Reilly Media, Inc. https://r4ds.had.co.nz
 
+Alexander,  R. (2022) Telling Stories with Data  https://tellingstorieswithdata.com
+
+
 ### Popular Science: (author, title, publisher, date)
 Fry, H. (2018), Hello World: How to be Human in the Age of the Machine, Doubleday
 
@@ -52,6 +55,10 @@ Silver, N, (2013) The Signal and the Noise: The Art and Science of Prediction, P
 
 Spiegelhalter, D. (2019). The art of statistics: Learning from data. Penguin UK.
 
+Mitchell, M. (2019). Artificial Intelligence: A Guide for Thinking Humans, Farrar, Straus and Giroux; Illustrated edition 
+
+Criado Perez, C., (2021) Invisible Women: Data Bias in a World Designed for Men, Harry N. Abrams
+
 ### Podcasts: (name, website)
 Deep Mind: Podcast, https://deepmind.com/blog/article/welcome-to-the-deepmind-podcast 
 
@@ -59,5 +66,8 @@ Freakonomics Podcast, http://freakonomics.com/
 
 More or Less: Behind the Stats https://www.bbc.co.uk/programmes/p02nrss1/episodes/downloads 
 
+Visible Women https://www.tortoisemedia.com/listen/visible-women/
+
 ### Module Playlist
-https://open.spotify.com/playlist/3MP5KPwjPTBSLQSkHFofwU?si=861703d810ef4b27
+[2021-2022](https://open.spotify.com/playlist/3MP5KPwjPTBSLQSkHFofwU?si=861703d810ef4b27)
+[2022-2023](https://open.spotify.com/playlist/77Vcs0h8WrYgZPYDde55s4?si=53284a7c27d9468b)
