@@ -2,7 +2,7 @@
 ## [Course Website](https://sites.google.com/dit.ie/math4001/home)
 ### [John S Butler](https://johnsbutler.netlify.com/)
 
-This course is an introduction to Probability and Statistical inference with R. Rstudio is an interface for R, to download go to the [Rstudio website](https://www.rstudio.com).
+This is the R repository the TU Dublin module Probability and Statistical Inference on the programmes the CPD in Data Analysis for Professional and PG Dip in Applied Statistics. We use Rstudio is an interface for R, to download go to the [Rstudio website](https://www.rstudio.com).
 
 
 Course Content:
@@ -26,6 +26,8 @@ Course Content:
    - Simple linear regression;
    - Categorical regression;
    - Logistic regression.
+
+The Summary Sheet for the module can be found [here](https://github.com/john-s-butler-dit/Probability-Cheat-Sheet).
 
 ## References
 ### Essential Reading: (author, title, publisher)
