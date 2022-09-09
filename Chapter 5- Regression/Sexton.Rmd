@@ -2,8 +2,8 @@
 title: "Sexton"
 author: "John S Butler"
 output:
+  word_document: default
   pdf_document: default
-  
 ---
 
 ```{r setup, include=FALSE}
@@ -52,7 +52,7 @@ summary(Sexton)
 
 ```
 
-```{r}
+```{r,dpi=300}
 
 
 library(ggplot2)

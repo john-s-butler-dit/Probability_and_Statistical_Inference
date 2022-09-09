@@ -31,7 +31,7 @@ ggplot(MYPEARSON, aes(x=parent, y=child)) +ylab("Child Height (in)")+xlab("Paren
 # ggsave("Linear_Regression.png",dpi=300, width = 4, height = 2)
 ```
 
-## Interpreting the slope of the regressot, $\beta$
+## Interpreting the slope of the regression, $\beta$
 
 1. If $\beta$ is close to $0$ then this would suggest that there is little to no relationship between the variable $y$ and the regressor $x$, for extreme example, someones height ($y$) does not correlation with their teachers height $x$.
 

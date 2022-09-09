@@ -1,6 +1,7 @@
 ---
 title: "Shopping"
 output:
+  word_document: default
   html_document:
     df_print: paged
 ---
@@ -59,7 +60,7 @@ ggplot(Data, aes(x = Age, y = Spend,shape=MacBeth)) +
 
 ## Multiple Variable Linear Regression
 
-```{r}
+```{r,dpi=300}
  
 SpendAll<-lm(Spend~Age+MacBeth+Loyalty+factor(FamilySize),data=Data)
 summary(SpendAll)

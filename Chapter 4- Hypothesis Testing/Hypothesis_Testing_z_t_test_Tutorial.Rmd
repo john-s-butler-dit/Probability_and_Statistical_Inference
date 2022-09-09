@@ -1,0 +1,224 @@
+---
+title: "Tutorial Sheet - Z-test"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+
+```
+
+## Question 1
+
+1. To investigate climate change meteorologists in Ireland, wish to examine the rain- fall in November. They have established that the normal mean daily rain fall in November is 2.35 mm. They observed rainfall for the 30 days of November in 2015 and recorded a mean rainfall of 4.05mm and a standard deviation of 2.25mm. 
+	Conduct a hypothesis test to determine if the observed data from November 2015 gives evidence ($\alpha$= 0.01) that there is a change in rainfall.
+
+
+
+__ANSWER:__
+
+```{r,echo=TRUE, warning=FALSE,dpi=300, warning=FALSE}
+mu<-2.35
+mean<-4.05
+SD<-2.25
+N<-30
+z<-(mean-mu)/sqrt(SD*SD/N)
+z
+Z_criteria_upper<-qnorm(0.995)
+Z_criteria_lower<-qnorm(0.005)
+SEM<-Z_criteria_upper*sqrt(SD*SD/N)
+
+```
+1. State an the null Hypothesis $H_0:$
+
+$$H_0: \bar{x}= \mu $$
+$$H_0 :\bar{x}= `r mu`$$
+2. State an Alternative Hypothesis $H_\alpha:$
+$$H_\alpha :\bar{x}\not= \mu$$
+ $$H_\alpha :\bar{x}\not= `r mu`$$
+3. Calculate a Test Statistic
+ $$Z=\frac{(\bar{x}-\mu)}{(SD⁄\sqrt{n})},$$
+ $$Z=\frac{(`r mean`-`r mu`)}{(`r SD`⁄\sqrt{`r N`})}=`r z`.$$
+
+4. Calculate a p-value and/or set a rejection region:
+
+  Reject for Z<`r Z_criteria_lower` and Z>`r Z_criteria_upper`.
+	
+5. State your conclusions:
+
+There was statistically more rainfall this November
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300,echo=FALSE, warning=FALSE,out.width="50%",fig.align='center'}
+df<-data.frame(Mean=c(mean),
+               sd=c(SEM),
+               Month=as.factor(c("Nov")))
+# Default bar plot
+ggplot(df, aes(x=Month, y=Mean)) +
+  geom_bar(position=position_dodge(), stat="identity",
+           colour='black') +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd), width=.2) +geom_hline(yintercept = mu, color = "green", size=1)
+
+```
+
+## Question 2
+
+2. Researchers wished to investigate differences in TV viewing practices between children in Ireland versus America. The researchers established that the mean TV viewing per week is 30.5 hours for American children. They observed 115 Irish children for a week and recorded a mean TV viewing of 28 hours and a standard deviation of 2.5 hours.
+Conduct a hypothesis test to determine if the observed data gives evidence that Irish children watch less TV than American children ($\alpha$ = 0.05).
+
+	__ANSWER__
+
+```{r}
+mu<-30.5
+mean<-28
+SD<-2.5
+N<-115
+z<-(mean-mu)/sqrt(SD*SD/N)
+z
+
+SEM<-1.96*sqrt(SD*SD/N)
+
+#Z_criteria_upper<-qnorm(0.95)
+Z_criteria_lower<-qnorm(0.05)
+
+
+```
+
+1. State an the null Hypothesis $H_0:$
+
+$$H_0: \bar{x}= \mu $$
+$$H_0 :\bar{x}= `r mu`$$
+2. State an Alternative Hypothesis $H_\alpha:$
+$$H_\alpha :\bar{x}< \mu$$
+ $$H_\alpha :\bar{x}< `r mu`$$
+3. Calculate a Test Statistic
+ $$Z=\frac{(\bar{x}-\mu)}{(SD⁄\sqrt{n})},$$
+ $$Z=\frac{(`r mean`-`r mu`)}{(`r SD`⁄\sqrt{`r N`})}=`r z`.$$
+
+4. Calculate a p-value and/or set a rejection region:
+
+  Reject for Z<`r Z_criteria_lower`.
+	
+5. State your conclusions:
+
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300, warning=FALSE,out.width="50%",fig.align='center'}
+df<-data.frame(Mean=c(mean),
+               sd=c(SEM),
+               TV=as.factor(c("Child")))
+# Default bar plot
+ggplot(df, aes(x=TV, y=Mean, fill=TV)) +
+  geom_bar(position=position_dodge(), stat="identity",
+           colour='black') +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd), width=.2) +geom_hline(yintercept = mu, color = "green", size=1)
+
+```
+
+
+## Question 3
+
+3. The CEO of a large electric utility claims that 80 percent of his customers are very satisfied with the service they receive. To test this claim, the local newspaper surveyed 140 customers, using simple random sampling. Among the sampled customers, 73 percent say they are very satisfied. 
+	Based on these findings, can we reject the CEO's hypothesis that 80% of the customers are very satisfied? Use a 0.05 level of significance.
+	
+	__ANSWER__
+
+```{r}
+p0<-0.8
+p_hat<-0.73
+
+N<-140
+z<-(p_hat-p0)/sqrt(p0*(1-p0)/N)
+z
+
+SEM<-1.96*sqrt(p0*(1-p0)/N)
+
+Z_criteria_upper<-qnorm(0.975)
+Z_criteria_lower<-qnorm(0.025)
+
+```
+
+1. State an the null Hypothesis $H_0:$
+
+$$H_0: \hat{p}= p_0 $$
+$$H_0 :\hat{p}= `r p0`$$
+2. State an Alternative Hypothesis $H_\alpha:$
+$$H_\alpha :\hat{p}\not= p_0$$
+ $$H_\alpha :\hat{p}\not= `r p0`$$
+3. Calculate a Test Statistic
+ $$Z=\frac{(\hat{p}-p_0)}{(\sqrt{q_0p_0/n})},$$
+ $$Z=\frac{(`r p_hat`-`r p0`)}{(\sqrt{`r 1-p0`\times `r p0`/`r N`})}=`r z`.$$
+
+4. Calculate a p-value and/or set a rejection region:
+
+  Reject for Z<`r Z_criteria_lower` or
+	Z>`r Z_criteria_upper`.
+
+
+5. State your conclusions:
+
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300, warning=FALSE,out.width="50%",fig.align='center'}
+df<-data.frame(Mean=c(p_hat),
+               sd=c(SEM),
+               Customer=as.factor(c("Satisfaction")))
+# Default bar plot
+ggplot(df, aes(x=Customer, y=Mean, fill=Customer)) +
+  geom_bar(position=position_dodge(), stat="identity",
+           colour='black') +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd), width=.2) +geom_hline(yintercept = p0, color = "green", size=1)
+
+```
+
+
+## Question 4
+4. A four-sided (tetrahedral) die is tossed 1000 times, and 290 fours are observed. Is there evidence to conclude that the die is biased, that is, say, that more fours than expected are observed?
+	Conduct a hypothesis test to determine if the observed data gives evidence that the die is fair ($\alpha$= 0.05).
+	
+	__ANSWER__
+
+```{r}
+p0<-0.25
+p_hat<-0.29
+
+N<-1000
+z<-(p_hat-p0)/sqrt(p0*(1-p0)/N)
+z
+SEM<-1.96*sqrt(p0*(1-p0)/N)
+```
+
+1. State an the null Hypothesis $H_0:$
+
+$$H_0: \hat{p}= p_0 $$
+$$H_0 :\hat{p}= `r p0`$$
+2. State an Alternative Hypothesis $H_\alpha:$
+$$H_\alpha :\hat{p}\not= p_0$$
+ $$H_\alpha :\hat{p}\not= `r p0`$$
+3. Calculate a Test Statistic
+ $$Z=\frac{(\hat{p}-p_0)}{(\sqrt{q_0p_0/n})},$$
+ $$Z=\frac{(`r p_hat`-`r p0`)}{(\sqrt{`r 1-p0`\times `r p0`/`r N`})}=`r z`.$$
+
+4. Calculate a p-value and/or set a rejection region:
+
+  Reject for Z<`r Z_criteria_lower` or
+	Z>`r Z_criteria_upper`.
+
+
+5. State your conclusions:
+
+
+```{r,echo=TRUE, warning=FALSE,dpi=300, warning=FALSE,out.width="50%",fig.align='center'}
+df<-data.frame(Mean=c(p_hat),
+               sd=c(SEM),
+               Die=as.factor(c("Roll")))
+# Default bar plot
+ggplot(df, aes(x=Die, y=Mean)) +
+  geom_bar(position=position_dodge(), stat="identity",
+           colour='black') +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd), width=.2) +geom_hline(yintercept = p0, color = "green", size=1)
+
+```
