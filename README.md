@@ -55,11 +55,13 @@ Rosling, H, Rosling, O, Rosling Ronnlund, (2019), Factfulness: Ten Reasons We're
 
 Silver, N, (2013) The Signal and the Noise: The Art and Science of Prediction, Penguin
 
-Spiegelhalter, D. (2019). The art of statistics: Learning from data. Penguin UK.
+Spiegelhalter, D. (2019), The art of statistics: Learning from data. Penguin UK.
 
-Mitchell, M. (2019). Artificial Intelligence: A Guide for Thinking Humans, Farrar, Straus and Giroux; Illustrated edition 
+Mitchell, M. (2019), Artificial Intelligence: A Guide for Thinking Humans, Farrar, Straus and Giroux; Illustrated edition 
 
-Criado Perez, C., (2021) Invisible Women: Data Bias in a World Designed for Men, Harry N. Abrams
+Criado Perez, C., (2021), Invisible Women: Data Bias in a World Designed for Men, Harry N. Abrams
+
+Hart, S., (2023), Once Upon a Prime, Flatiron Books
 
 ### Podcasts: (name, website)
 Deep Mind: Podcast, https://deepmind.com/blog/article/welcome-to-the-deepmind-podcast 
